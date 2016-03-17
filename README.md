@@ -12,7 +12,10 @@
 9. O sistema deve permitir que um administrador aceite ou recuse um novo posto de atendimento sugerido por um usuário
 10. O sistema deve permitir um administrador cadastrar um novo posto de atendimento
 11. O sistema deve permitir o usuário realizar uma busca com filtros entre os postos de atendimento
-12. O sistema deve mostrar a localização do posto de atendimento no GoogleMaps
+12. O sistena deve permitir o usuário realizar uma busca de postos de atendimento por região. e.g. cidade/estado.
+13. O sistema deve permitir o usuário realizar uma busca dos postos de atendimento melhores avaliados.
+14. O sistema deve permitir o usuário realizar uma busca dos postos de atendimento melhores avaliados por região.
+15. O sistema deve mostrar a localização do posto de atendimento no GoogleMaps
 
 
 # Requisitos não Funcionais
