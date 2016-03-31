@@ -1,5 +1,14 @@
 # dangari-healthy
 
+Download dependencies with:
+
+    npm install
+
+Start server with:
+
+    npm start
+
+
 # Requisitos Funcionais
 1. O sistema deve permitir o cadastro de usuários
 2. O sistema deve permitir o cadastro de administradores
