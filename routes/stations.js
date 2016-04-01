@@ -3,6 +3,47 @@ var router = express.Router();
 
 var mongoose = require('mongoose');
 var Station = mongoose.model('Station');
+var Review = mongoose.model('Review');
+
+router.get('/:id', function(req, res, next) {
+	Station.findOne({_id : req.params.id}, 'name location reviews', function(err, station) {
+		if (err) {
+			return next(err);
+		}
+		res.json(station);
+	});
+});
+
+router.get('/:id/reviews', function(req, res, next) {
+	Station
+		.findOne({_id : req.params.id}, 'reviews')
+		.populate('reviews')
+		.exec(function (err, station) {
+		  if (err) return next(err);
+		  res.json(station);
+		});
+});
+
+router.post('/:id/reviews', function(req, res, next) {
+ 	Review.findOne({_id : req.body._id}, function(err, review) {
+ 		if (err) {
+ 			return next(err);
+ 		}
+ 		Station.findOne({_id : req.params.id}, function(err, station) {
+			if (err) {
+				return next(err);
+			}
+			station.reviews.push(review);
+			station.save(function(err, station) {
+				if(err) { 
+					return next(err); 
+				}
+				res.json({message: 'Avaliação adicionada com sucesso!'});
+			});
+			
+		});
+ 	});
+});
 
 router.get('/', function(req, res, next) {
 	Station.find(function(err, stations) {
