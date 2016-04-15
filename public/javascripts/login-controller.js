@@ -23,6 +23,7 @@
                 .then(
                     function(response) {
                     	if (response) {
+                    		console.log(response);
                         	toastr.success('Logado com sucesso!');
                     	} else {
                     		toastr.error('Ocorreu um erro ao realizar login');

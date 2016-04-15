@@ -2,7 +2,9 @@ var express = require('express');
 var router = express.Router();
 
 var mongoose = require('mongoose');
+var jwt = require('jsonwebtoken');
 var User = mongoose.model('User');
+var auth = require('../utils/authentication');
 
 router.get('/:id', function(req, res, next) {
 	User.findOne({_id : req.params.id}, 'name login accountLevel', function(err, user) {
@@ -13,7 +15,6 @@ router.get('/:id', function(req, res, next) {
 	});
 });
 
-// TODO: essa rota só deveria retornar o name e accountLevel
 router.get('/', function(req, res, next) {
 	User.find('name accountLevel', function(err, users) {
 		if (err) {
@@ -21,6 +22,23 @@ router.get('/', function(req, res, next) {
 		}
 		res.json(users);
 	});
+});
+
+// TODO AJEITA ESSA PORRA
+router.get('/me/me', auth.ensureAuthorized, function(req, res, next) {
+	User.findOne({token: req.token}, function(err, user) {
+        if (err) {
+            res.json({
+                type: false,
+                data: "Error occured: " + err
+            });
+        } else {
+            res.json({
+                type: true,
+                data: user
+            });
+        }
+    });
 });
 
 router.post('/', function(req, res, next) {
@@ -42,13 +60,14 @@ router.post('/', function(req, res, next) {
   	return;
   }
 
-  User.findOne({login : req.body.login}, 'name login accountLevel', function(err, userExists) {
+  User.findOne({login : req.body.login}, function(err, userExists) {
 		if (err) {
 			return next(err);
 		}
 		if (userExists) {
 			res.status(500).send('User already exists');
 		} else {
+            user.token = jwt.sign(user, 'nossoSecretDangariHealthy');
 			user.save(function(err, salvedUser){
 			    if(err){ return next(err); }
 

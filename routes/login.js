@@ -5,11 +5,20 @@ var mongoose = require('mongoose');
 var User = mongoose.model('User');
 
 router.post('/', function(req, res, next) {
-	User.findOne({login : req.body.login}, 'name login accountLevel', function(err, user) {
+	User.findOne({login : req.body.login, password: req.body.password}, function(err, user) {
 		if (err) {
-			return next(err);
-		}
-		res.json(user);
+            res.status(500).send("Error occured: " + err);
+        } else {
+            if (user) {
+               res.json({
+                    type: true,
+                    data: user,
+                    token: user.token
+                });
+            } else {
+            	res.status(500).send('Incorrect login/password');
+            }
+        }
 	});
 });
 
