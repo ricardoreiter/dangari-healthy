@@ -1,0 +1,33 @@
+{
+  "name": "Dangari Healthy",
+  "main": "index.js",
+  "version": "0.01",
+  "authors": [
+    "Ricardo Filpe Reiter <ricardof.reiter@gmail.com.br>",
+    "Gabriel Henrique Biz",
+    "Daniel Pamplona Soares"
+  ],
+  "description": "Aplicação de avaliação de instituições de saúde",
+  "keywords": [
+    "saude",
+    "instituições",
+    "avaliação"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.4",
+    "angular-bootstrap": "~0.13.3",
+    "angular-route": "~1.4.4",
+    "bootstrap": "~3.3.5",
+    "components-font-awesome": "~4.4.0",
+    "toastr": "~2.1.2"
+  }
+}
