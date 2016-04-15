@@ -30,7 +30,7 @@
                 },
 
                 getCurrentUser: function() {
-                    return $http.get('/login/').then(
+                    return $http.get('/users/me/me').then(
                         function(response){
                             return response.data;
                         }, 
@@ -67,8 +67,7 @@
         var sessionInjector = {
             request: function(config) {
                 var authToken = LocalStorageService.getAuthToken();
-                // Só adicionamos token nos requests feitos para a API de análise crítica
-                if (authToken && config.url.startsWith(API_URL)) {
+                if (authToken) {
                     config.headers['Authorization'] = authToken;
                 }
                 return config;
@@ -76,5 +75,12 @@
         };
         return sessionInjector;
     }]);
+
+    dangariServices.config(
+        function setupConfig( $httpProvider ) {
+            $httpProvider.interceptors.push('sessionAuthTokenInjector');
+        }
+    );
+    
 
 }());

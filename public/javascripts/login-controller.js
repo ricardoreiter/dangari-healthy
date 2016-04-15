@@ -1,6 +1,6 @@
 (function () {
 
-	angular.module('dangariHealthy').controller('LoginController', function($http, $scope, LoginService) {
+	angular.module('dangariHealthy').controller('LoginController', function($http, $scope, LoginService, LocalStorageService) {
 		var self = this;
 
 		self.user = {
@@ -18,12 +18,35 @@
 		self.login = login;
 		self.register = register;
 
+		checkIfLogged();
+
+		function checkIfLogged() {
+			var token = LocalStorageService.getAuthToken();
+			if (token) {
+				LoginService.getCurrentUser()
+	                .then(
+	                    function(response) {
+	                    	if (response) {
+	                    		self.user = response.data;
+	                        	toastr.success('Logado com sucesso!');
+	                    	} else {
+	                    		toastr.error('Ocorreu um erro ao realizar login');
+	                    	}
+	                    },
+	                    function(error) {
+	                        console.error(error);
+	                        toastr.error('Ocorreu um erro ao realizar login');
+	                    }
+	                );
+			}
+		}
+
 		function login() {
 			LoginService.login(self.user)
                 .then(
                     function(response) {
                     	if (response) {
-                    		console.log(response);
+                    		LocalStorageService.setAuthToken(response.token);
                         	toastr.success('Logado com sucesso!');
                     	} else {
                     		toastr.error('Ocorreu um erro ao realizar login');
