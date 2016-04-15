@@ -4,14 +4,14 @@
 		var self = this;
 
 		self.user = {
-			username: '',
+			login: '',
 			password: ''
 		};
 
 		self.newUser = {
-			username: '',
-			email: '',			
-			password: '',
+			name: '',
+		  	login: '',
+		  	password: '',
 			confirmPassword: ''
 		}
 
@@ -19,11 +19,33 @@
 		self.register = register;
 
 		function login() {
-			toastr.error('Login');
+			LoginService.login(self.user)
+                .then(
+                    function(response) {
+                    	if (response) {
+                        	toastr.success('Logado com sucesso!');
+                    	} else {
+                    		toastr.error('Ocorreu um erro ao realizar login');
+                    	}
+                    },
+                    function(error) {
+                        console.error(error);
+                        toastr.error('Ocorreu um erro ao realizar login');
+                    }
+                );
 		}
 
 		function register() {
-			toastr.error('register');
+			LoginService.register(self.newUser)
+                .then(
+                    function(response) {
+                        toastr.success('Registrado com sucesso!');
+                    },
+                    function(error) {
+                        console.error(error);
+                        toastr.error('Ocorreu um erro ao registrar usuário');
+                    }
+                );
 		}
 
 	});

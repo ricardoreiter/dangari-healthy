@@ -5,7 +5,7 @@
     dangariServices.factory('LoginService', ['$http', '$q', function($http, $q){
         return {
 
-                loginUser: function(user) {
+                login: function(user) {
                     return $http.post('/login/', user).then(
                         function(response){
                             return response.data;
@@ -17,13 +17,25 @@
                     );
                 },
 
-                getCurrentlyUser: function() {
+                register: function(user) {
+                    return $http.post('/users/', user).then(
+                        function(response){
+                            return response.data;
+                        }, 
+                        function(errResponse){
+                            console.error('Erro ao registrar usuário.');
+                            return $q.reject(errResponse);
+                        }
+                    );  
+                },
+
+                getCurrentUser: function() {
                     return $http.get('/login/').then(
                         function(response){
                             return response.data;
                         }, 
                         function(errResponse){
-                            console.error('Erro ao carregar usuário.');
+                            console.error('Erro ao carregar usuário atual.');
                             return $q.reject(errResponse);
                         }
                     );

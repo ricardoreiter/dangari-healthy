@@ -27,11 +27,35 @@ router.post('/', function(req, res, next) {
   var user = new User(req.body);
   user.accountLevel = 0;
 
-  user.save(function(err, user){
-    if(err){ return next(err); }
+  if (!user.login) {
+  	res.status(500).send('Empty user login');
+  	return;
+  }
 
-    res.json(user);
-  });
+  if (!user.password) {
+  	res.status(500).send('Empty user password');
+  	return;
+  }
+
+  if (!user.name) {
+  	res.status(500).send('Empty user name');
+  	return;
+  }
+
+  User.findOne({login : req.body.login}, 'name login accountLevel', function(err, userExists) {
+		if (err) {
+			return next(err);
+		}
+		if (userExists) {
+			res.status(500).send('User already exists');
+		} else {
+			user.save(function(err, salvedUser){
+			    if(err){ return next(err); }
+
+			    res.json(salvedUser);
+			});
+		}
+	});
 });
 
 module.exports = router;
