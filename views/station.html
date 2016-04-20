@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="dangariHealthy">
+
+<head>
+    <title>Dangari Healthy</title>
+    <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap-theme.min.css" />
+    <link href="/angular-carousel/dist/angular-carousel.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="/components-font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="/angular-loading-bar/build/loading-bar.min.css" />
+    <link rel="stylesheet" href="/toastr/toastr.css" />
+    <link rel="stylesheet" href="/stylesheets/station.css" />
+    <script src="/jquery/dist/jquery.min.js"></script>
+    <script src="/angular/angular.min.js"></script>
+</head>
+
+<body ng-controller="StationViewController as stationViewCtrl">
+    <div class="container">
+    	<div class="row">
+			<div class="col-md-6 col-md-offset-3">
+				<div class="panel panel-station">
+					<div class="panel-heading">
+						<h4>
+							{{stationViewCtrl.station.name}}
+						</h4>
+						<div class="row"> 
+							<ul rn-carousel rn-carousel-index="carouselImages" rn-carousel-controls class="carousel2" style="height: 500px">
+		                        <li ng-repeat="image in stationViewCtrl.images">
+		                            <img src="{{image.url}}"/>
+		                        </li>
+		                    </ul>
+		                    <div rn-carousel-indicators ng-if="stationViewCtrl.images.length > 1" slides="stationViewCtrl.images" rn-carousel-index="carouselImages"></div>
+						</div>
+						<hr>
+					</div>
+					<div class="panel-body">
+						<h5>
+							Avaliações dos usuários
+						</h5>
+						<div class="row">
+							<div class="review" ng-repeat="review in stationViewCtrl.station.reviews | filter: stationViewCtrl.filterStationReviews">
+								<div class="row">
+									<div ng-repeat="score in review.scores">
+										{{score.label}} : 
+										<div class="score-star"><i ng-repeat="star in score.score" class="fa fa-star" aria-hidden="true"></i></div>
+									</div>
+								</div>
+								<div class="row">
+									Opinião do usuário: {{review.comment}}
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+    <script src="/angular-bootstrap/ui-bootstrap.min.js"></script>
+    <script src="/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+    <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/angular-touch/angular-touch.js"></script>
+	<script src="/angular-carousel/dist/angular-carousel.js"></script>
+    <script src="/bootstrap/js/tooltip.js"></script>
+    <script src="/toastr/toastr.js"></script>
+    <script src="/angular-loading-bar/build/loading-bar.min.js"></script>
+    <script src="/javascripts/dangari-services.js"></script>
+    <script src="/javascripts/app.js"></script>
+    <script src="/javascripts/station-view-controller.js"></script>
+</body>
+</html>
