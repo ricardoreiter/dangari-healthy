@@ -1,0 +1,27 @@
+div.portlet {
+    border-radius: 10px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    margin-top: 30px;
+    background-color: #FFFFFF;
+}
+img.portlet-img {
+    border-radius: 10px 10px 0 0;
+}
+div.portlet-desc {
+    padding: 10px 15px 12px 15px;
+}
+body {
+    min-height: 2000px;
+    background-color: #E9E9E9;
+    padding-top: 70px;
+}
+nav {
+    background-color: #FFFFFF;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+div.portlet h3 {
+    margin-bottom: 0px;
+}
+div.portlet hr {
+    margin-top: 5px;
+}

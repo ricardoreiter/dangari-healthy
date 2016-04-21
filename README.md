@@ -3,6 +3,7 @@
 Download dependencies with:
 
     npm install
+    bower install
 
 Start server with:
 
@@ -31,3 +32,19 @@ Start server with:
 1. O sistema deverá funcionar em qualquer plataforma através de um browser.
 2. O sistema deverá ser responsivo de acordo com o tamanho da tela do usuário.
 3. O sistema deverá ser intuitivo, de fácil usabilidade para o usuário.
+
+
+# Desenvolvimento
+
+## Nomenclatura, arquivos, padronização
+
+Essa é a padronização atual. Por favor, melhore conforme novas funcionalidades forem necessárias.
+
+1. Nomes de arquivos devem ser todos em minúsculo separados por hifen
+2. Nomes de services e controllers devem ser iguais ao nome do arquivo, porém utilizando PascalCase. Somente a primeira letra de acrônimos ficam em maiúsculo, e.g. StationApi ao invés de StationAPI
+3. Nomes de services devem conter Svc no final
+4. Nomes de controllers devem conter Ctrl no final
+5. Services ficam em scripts/services
+6. Controllers de páginas ficam em scripts/controllers
+7. Views ficam em views. View de diretiva (partial) deve iniciar com _
+8. Diretivas e seus controllers ficam em scripts/directives

@@ -10,7 +10,7 @@ require('./models/User');
 require('./models/Review');
 require('./models/Station');
 
-var renderRoutes = require('./routes/index');
+//var renderRoutes = require('./routes/index');
 var stations = require('./routes/stations');
 var users = require('./routes/users');
 var reviews = require('./routes/reviews');
@@ -21,7 +21,7 @@ var app = express();
 mongoose.connect('mongodb://localhost/healthy')
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
+//app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.engine('html', require('ejs').renderFile);
 
@@ -40,7 +40,7 @@ res.setHeader('Access-Control-Allow-Origin', '*');
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'bower_components')));
 
-app.use('/', renderRoutes);
+//app.use('/', renderRoutes);
 app.use('/stations', stations);
 app.use('/users', users);
 app.use('/reviews', reviews);

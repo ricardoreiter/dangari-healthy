@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en" ng-app="dangari-healthy">
+
+<head>
+    <title>Dangari Healthy</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/components-font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="/styles/home.css">
+</head>
+
+<body>
+    <!--Begin Header-->
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-btn">
+                <div class="row">
+                    <div class="col-xs-0 col-sm-1 col-md-1">
+                    </div>
+                    <div class="col-xs-10 col-sm-10 col-md-10">
+                        <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon1"><i class="fa fa-hospital-o" aria-hidden="true"></i></span>
+                            <input type="text" class="form-control" placeholder="Encontrar instituição" aria-describedby="basic-addon1">
+                            <div class="input-group-btn">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bars" aria-hidden="true"></i> <span class="caret"></span></button>
+                                <ul class="dropdown-menu dropdown-menu-right">
+                                    <li>&nbsp;
+                                        <input type="checkbox" name="filter" vale="name">&nbsp;Nome</li>
+                                    <li>&nbsp;
+                                        <input type="checkbox" name="filter" vale="place">&nbsp;Endereço</li>
+                                    <li role="separator" class="divider"></li>
+                                    <li>&nbsp;
+                                        <input type="checkbox" name="filter" vale="name">&nbsp;Ordem alfabética</li>
+                                    <li>&nbsp;
+                                        <input type="checkbox" name="filter" vale="name">&nbsp;Melhores avaliadas</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-1 col-sm-1 col-md-1">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-user" aria-hidden="true"></i></i>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li><a href="#">Sair</a></li>
+                                <li><a href="#">Sair</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="#">Sair</a></li>
+                                <li><a href="#">Sair</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!--End Header-->
+
+    <div ng-view></div>
+
+    <div class="container">
+        <div ui-view></div>
+        <hr/>
+        <p class="text-center">Made by <a href="http://extra.globo.com/incoming/6692140-92b-9e1/w640h360-PROP/sergio-mallandro-fluminense-flu-flu-ie-ie.jpg">Dangari</a></p>
+    </div>
+
+    <script src="/angular/angular.min.js"></script>
+    <script src="/angular-route/angular-route.min.js"></script>
+    <script src="/jquery/dist/jquery.min.js"></script>
+    <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="scripts/module.js"></script>
+    <script src="scripts/services/station.js"></script>
+    <script src="scripts/controllers/home.js"></script>
+    <script src="scripts/routes.js"></script>
+</body>
+</html>
