@@ -1,4 +1,7 @@
-div.station-card:hover {
+.station-card {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+.station-card:hover {
     opacity: 0.4;
 }
 img.portlet-img {
