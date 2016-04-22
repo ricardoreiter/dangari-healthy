@@ -1,6 +1,6 @@
 (function () {
 
-	angular.module('dangariHealthy').controller('LoginController', function($http, $scope, LoginService, LocalStorageService) {
+	angular.module('dangari-healthy').controller('LoginCtrl', function($http, $scope, LoginSvc, LocalStorageSvc) {
 		var self = this;
 
 		self.user = {
@@ -17,13 +17,29 @@
 
 		self.login = login;
 		self.register = register;
+		self.loginBtnClick = loginBtnClick;
+		self.registerBtnClick = registerBtnClick;
 
 		checkIfLogged();
 
+		function loginBtnClick() {
+			$("#login-form").delay(100).fadeIn(100);
+	 		$("#register-form").fadeOut(100);
+			$('#register-form-link').removeClass('active');
+			$('#login-form-link').addClass('active');
+		}
+
+		function registerBtnClick() {
+			$("#register-form").delay(100).fadeIn(100);
+	 		$("#login-form").fadeOut(100);
+			$('#login-form-link').removeClass('active');
+			$('#register-form-link').addClass('active');
+		}
+
 		function checkIfLogged() {
-			var token = LocalStorageService.getAuthToken();
+			var token = LocalStorageSvc.getAuthToken();
 			if (token) {
-				LoginService.getCurrentUser()
+				LoginSvc.getCurrentUser()
 	                .then(
 	                    function(response) {
 	                    	if (response) {
@@ -42,11 +58,11 @@
 		}
 
 		function login() {
-			LoginService.login(self.user)
+			LoginSvc.login(self.user)
                 .then(
                     function(response) {
                     	if (response) {
-                    		LocalStorageService.setAuthToken(response.token);
+                    		LocalStorageSvc.setAuthToken(response.token);
                         	toastr.success('Logado com sucesso!');
                     	} else {
                     		toastr.error('Ocorreu um erro ao realizar login');
@@ -60,7 +76,7 @@
 		}
 
 		function register() {
-			LoginService.register(self.newUser)
+			LoginSvc.register(self.newUser)
                 .then(
                     function(response) {
                         toastr.success('Registrado com sucesso!');
@@ -75,22 +91,3 @@
 	});
 
 }());
-
-$(function() {
-
-    $('#login-form-link').click(function(e) {
-		$("#login-form").delay(100).fadeIn(100);
- 		$("#register-form").fadeOut(100);
-		$('#register-form-link').removeClass('active');
-		$(this).addClass('active');
-		e.preventDefault();
-	});
-	$('#register-form-link').click(function(e) {
-		$("#register-form").delay(100).fadeIn(100);
- 		$("#login-form").fadeOut(100);
-		$('#login-form-link').removeClass('active');
-		$(this).addClass('active');
-		e.preventDefault();
-	});
-
-});
