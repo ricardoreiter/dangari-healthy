@@ -13,7 +13,7 @@
         function _getAll(average) {
             //Dados para teste.
             return [{
-                name: 'Unimed Blumenau',
+                name: 'Unimed Blumenau Com muito texto louco hehe',
                 image: 'http://www.unimed.coop.br/portal/conteudo/materias/1256325918313fachada.jpg',
                 address: 'Rua Rio Branco, nº 797',
                 scoreAverage: 5

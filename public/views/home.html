@@ -1,17 +1,15 @@
 <div class="container">
-    <div class="row">
-        <div ng-repeat="station in vm.stations" class="col-xs-12 col-sm-6 col-md-3">
-            <div class="portlet">
-                <img src="{{station.image}}" alt="NO" class="img-responsive portlet-img">
-                <div class="portlet-desc">
-                    <h3>{{station.name}}</h3>
-                    <div>
-                        <i ng-repeat="star in station.stars track by $index" class="fa {{star}}" aria-hidden="true"></i>
-                    </div>
-                    <hr/> {{station.scoreAverage}}
-                    <br> {{station.address}}
-                </div>
+    <div class="card-columns">
+        <div ng-repeat="station in vm.stations" class="card station-card">
+            <!--<div class="portlet">-->
+            <img src="{{station.image}}" alt="NO" class="card-img-top img-responsive portlet-img">
+            <div class="card-block">
+                <h3>{{station.name}}</h3>
+                <i ng-repeat="star in station.stars track by $index" class="fa {{star}}" aria-hidden="true"></i>
+                <hr/> {{station.scoreAverage}}
+                <br> {{station.address}}
             </div>
         </div>
     </div>
+</div>
 </div>
