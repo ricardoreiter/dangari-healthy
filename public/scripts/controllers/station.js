@@ -1,6 +1,6 @@
 (function () {
 
-	angular.module('dangariHealthy').controller('StationViewController', function($http, $scope, LoginService, LocalStorageService) {
+	angular.module('dangari-healthy').controller('StationCtrl', function($http, $scope) {
 		var self = this;
 
 		self.station = {
