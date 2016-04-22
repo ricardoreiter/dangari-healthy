@@ -1,0 +1,43 @@
+<link rel="stylesheet" href="/styles/station-suggestion.css" />
+<div class="container">
+    <form name="formSuggestion" class="form-horizontal">
+        <div class="form-group">
+            <div class="row">
+                <div class="col-xs-2 col-xs-6">
+                    <label for="name">Nome da instituição:</label>
+                </div>
+                <div class="col-xs-4 col-xs-6">
+                    <input id="name" name="name" type="text" class="form-control" ng-model="ctrl.station.name" required>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-xs-2 col-xs-6">
+                    <label for="location">Selecione a localização:</label>
+                </div>
+                <div class="col-xs-4 col-xs-6">
+                    <input id="location" name="location" type="text" class="form-control" ng-model="ctrl.station.location" required>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-3 col-sm-2">
+                    <img id="imagem" ng-src="{{ctrl.urlImagem}}" class="imagem">
+                    <p>
+                        <span class="btn btn-default btn-file">Selecionar imagem
+                            <input name="imagem" type="file" ng-model="img" onchange="angular.element(this).scope().ctrl.loadImage(this.files[0])">
+                        </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-4 col-xs-6">
+               <button class="btn btn-success">Enviar para aprovação</button>
+                <button class="btn btn-default">Cancelar</button>
+            </div>
+        </div>
+    </form>
+</div>
