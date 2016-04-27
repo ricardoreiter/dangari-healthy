@@ -5,19 +5,22 @@
 
 		self.station = {
 			name: 'UNIMED - Vila Nova',
+			scoreAverage: 3.5,
 			reviews: [{
 			  	scoreGeneral: 0,
 			  	scoreAttendence: 1,
 			  	scoreReception: 2,
 			  	scoreStructure: 2,
 			  	scorePunctuality: 0,
-			  	comment: 'Uma bostaaaa, odieiii'
+			  	user: 'Gabriel Biz',
+			  	comment: 'Uma bostaaaa, odieiii, uiii'
 			}, {
 			  	scoreGeneral: 5,
 			  	scoreAttendence: 5,
 			  	scoreReception: 5,
 			  	scoreStructure: 5,
 			  	scorePunctuality: 5,
+			  	user: 'Seu zeca',
 			  	comment: 'Rapaz que atendimento bão sô se é loco o atendente me atendeu bem ta ligado pq o baguio é doido mermo bixão o.O'
 			}]
 		};
@@ -31,6 +34,7 @@
 		self.filterStationReviews = filterStationReviews;
 
 		loadStation();
+		calculateStars(self.station);
 
 		function loadStation() {
 			for (var i = 0; i < self.station.reviews.length; i++) {
@@ -46,30 +50,42 @@
 			return [
 				{
 					label: 'Geral',
-					score: scoreToList(review.scoreGeneral)
+					score: getStars(review.scoreGeneral)
 				}, {
 					label: 'Atendimento',
-					score: scoreToList(review.scoreAttendence)
+					score: getStars(review.scoreAttendence)
 				}, {
 					label: 'Recepção',
-					score: scoreToList(review.scoreReception)
+					score: getStars(review.scoreReception)
 				}, {
 					label: 'Estrutura física',
-					score: scoreToList(review.scoreStructure)
+					score: getStars(review.scoreStructure)
 				}, {
 					label: 'Pontualidade',
-					score: scoreToList(review.scorePunctuality)
+					score: getStars(review.scorePunctuality)
 				}
 			];
 		}
 
-		function scoreToList(score) {
-			var returnList = [];
-			for (var i = 0; i < score; i++) {
-				returnList.push(i);
-			}
-			return returnList;
-		}
+        function calculateStars(station) {
+            station.stars = getStars(station.scoreAverage);
+        }
+
+        function getStars(score) {
+            var stars = [];
+            for (var i = 0; i < 5; i++) {
+                if (i < score) {
+                    if ((score - i) < 1) {
+                        stars.push('fa-star-half-o');
+                    } else {
+                        stars.push('fa-star');
+                    }
+                } else {
+                    stars.push('fa-star-o');
+                }
+            }
+            return stars;
+        }
 
 	});
 

@@ -1,37 +1,65 @@
 <div class="container">
 	<div class="row">
-		<div class="col-md-6 col-md-offset-3">
-			<div class="panel panel-station">
-				<div class="panel-heading">
-					<h4>
-						{{sc.station.name}}
-					</h4>
-					<div class="row"> 
-						<ul rn-carousel rn-carousel-index="carouselImages" rn-carousel-controls class="carousel2" style="height: 500px">
+		<div class="card panel-station">
+			<div class="panel-heading">
+				<h4>
+					{{sc.station.name}}
+				</h4>
+				<hr>
+				<div class="row"> 
+					<div class="col-md-8">
+						<ul rn-carousel rn-carousel-index="carouselImages" rn-carousel-controls class="carousel-images" style="height: 500px">
 	                        <li ng-repeat="image in sc.images">
 	                            <img src="{{image.url}}"/>
 	                        </li>
 	                    </ul>
 	                    <div rn-carousel-indicators ng-if="sc.images.length > 1" slides="sc.images" rn-carousel-index="carouselImages"></div>
-					</div>
-					<hr>
+                	</div>
+                	<div class="col-md-4">
+                		<div class="row">
+                			<h5>Localização</h5>
+                		</div>
+                		<div class="row">
+                			<h5>Avaliação geral</h5>
+                			<i ng-repeat="star in sc.station.stars track by $index" class="score-star fa {{star}}" aria-hidden="true"></i>
+                		</div>
+                	</div>
 				</div>
-				<div class="panel-body">
-					<h5>
-						Avaliações dos usuários
-					</h5>
-					<div class="row">
-						<div class="review" ng-repeat="review in sc.station.reviews | filter: sc.filterStationReviews">
-							<div class="row">
-								<div ng-repeat="score in review.scores">
-									{{score.label}} : 
-									<div class="score-star"><i ng-repeat="star in score.score" class="fa fa-star" aria-hidden="true"></i></div>
+				<hr>
+			</div>
+			<div class="panel-body">
+				<h5>
+					Avaliações dos usuários
+				</h5>
+				<hr>
+				<div class="row">
+					<div class="review row" ng-repeat="review in sc.station.reviews | filter: sc.filterStationReviews">
+						<div class="col-md-3">
+							<div ng-repeat="score in review.scores">
+								<div class="row">
+									<div class="col-md-6 score-label">
+										{{score.label}}:
+									</div>
+									<div class="col-md-6 score-star">
+										<i ng-repeat="star in score.score track by $index" class="fa {{star}}" aria-hidden="true"></i>
+									</div>
 								</div>
 							</div>
-							<div class="row">
-								Opinião do usuário: {{review.comment}}
+						</div>
+						<div class="col-md-9 score-comment">
+							<div class="col-md-1">
+								<div class="vr"></div>
+							</div>
+							<div class="col-md-11">
+								<div class="row score-comment-title">
+									{{review.user}}
+								</div>
+								<div class="row">
+									{{review.comment}}
+								</div>
 							</div>
 						</div>
+						<hr>
 					</div>
 				</div>
 			</div>
