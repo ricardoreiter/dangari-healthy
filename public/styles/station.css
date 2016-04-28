@@ -77,6 +77,11 @@ body {
 	padding-right: 0px;
 }
 
+.score-star {
+	color: #D8D300;
+	font-size: 18px;
+}
+
 .review .score-comment-title {
 	font-size: 18px;
 }
