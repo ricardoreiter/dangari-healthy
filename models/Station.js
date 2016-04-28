@@ -3,6 +3,7 @@ var mongoose = require('mongoose');
 var StationSchema = new mongoose.Schema({
   	name: String,
   	location: String,
+  	scoreAverage: Number,
   	reviews : [{type: mongoose.Schema.Types.ObjectId, ref: 'Review'}]
 });
 

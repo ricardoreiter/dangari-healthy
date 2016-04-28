@@ -1,9 +1,12 @@
 <link rel="stylesheet" href="/styles/station-suggestion.css" />
-<div class="container">
+<div class="container container-white">
+    <br>
     <form name="formSuggestion" class="form-horizontal">
+        <legend>Sugerir nova instituição de saúde <i class="fa fa-plus-square" aria-hidden="true"></i></legend>
+        <br>
         <div class="form-group">
             <div class="row">
-                <div class="col-xs-2 col-xs-6">
+                <div class="col-xs-2 col-xs-3">
                     <label for="name">Nome da instituição:</label>
                 </div>
                 <div class="col-xs-4 col-xs-6">
@@ -13,7 +16,7 @@
         </div>
         <div class="form-group">
             <div class="row">
-                <div class="col-xs-2 col-xs-6">
+                <div class="col-xs-2 col-xs-3">
                     <label for="location">Selecione a localização:</label>
                 </div>
                 <div class="col-xs-4 col-xs-6">
@@ -22,21 +25,20 @@
             </div>
         </div>
         <div class="form-group">
-            <div class="row">
-                <div class="col-md-3 col-sm-2">
-                    <img id="imagem" ng-src="{{ctrl.urlImagem}}" class="imagem">
-                    <p>
-                        <span class="btn btn-default btn-file">Selecionar imagem
-                            <input name="imagem" type="file" ng-model="img" onchange="angular.element(this).scope().ctrl.loadImage(this.files[0])">
-                        </span>
-                    </p>
+            <div class="card station-card">
+                <p class="card-text" ng-show="ctrl.urlImagem===undefined"><small class="text-muted">Nenhuma imagem selecionada</small></p>
+                <img class="card-img-top imagem" ng-src="{{ctrl.urlImagem}}">
+                <div class="card-block" ng-click="">
+                    <span class="btn btn-file btn-info btn-sm">Possui uma imagem? Selecione!
+                        <input name="imagem" type="file" ng-model="img" onchange="angular.element(this).scope().ctrl.loadImage(this.files[0])">
+                    </span>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-xs-4 col-xs-6">
-               <button class="btn btn-success">Enviar para aprovação</button>
-                <button class="btn btn-default">Cancelar</button>
+               <button class="btn btn-success btn-bottom">Enviar para aprovação</button>
+               <button class="btn btn-default btn-bottom">Cancelar</button>
             </div>
         </div>
     </form>

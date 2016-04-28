@@ -1,10 +1,26 @@
 .imagem {
 	max-width: 500px;
-	max-height: 500px;
+	max-height: 350px;
+	border-radius: 5px;
+}
+.station-card {
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+	alignment: center;
+	width: 500px;
+}
+.station-card:hover {
+	opacity: 1;
+}
+.btn-bottom {
+	margin-bottom: 12px;
 }
 .btn-file {
 	position: relative;
 	overflow: hidden;
+}
+.container-white{
+	background: white;
+	border-radius: 5px;
 }
 .btn-file input[type=file] {
 	position: absolute;
