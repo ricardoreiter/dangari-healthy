@@ -7,7 +7,8 @@
             'ngRoute',
             'angular-loading-bar',
             'angular-carousel',
-            'ngMap'
+            'ngMap',
+            'ui.bootstrap'
         ]);
 
 }());

@@ -1,103 +1,101 @@
 <div class="container">
 	<div class="row">
-	    <div class="col-md-8 col-md-offset-2">
-			<div class="card panel-station">
-				<div class="panel-heading">
-					<div class="row"> 
-						<h4>
-							{{sc.station.name}}
-						</h4>
-						<ul rn-carousel rn-carousel-index="carouselImages" rn-carousel-controls class="carousel-images" style="height: 500px">
-	                        <li ng-repeat="image in sc.images">
-	                            <img src="{{image.url}}"/>
-	                        </li>
-	                    </ul>
-	                    <div rn-carousel-indicators ng-if="sc.images.length > 1" slides="sc.images" rn-carousel-index="carouselImages"></div>
+		<div class="card panel-station">
+			<div class="panel-heading">
+				<div class="row"> 
+					<h4>
+						{{sc.station.name}}
+					</h4>
+					<ul rn-carousel rn-carousel-index="carouselImages" rn-carousel-controls class="carousel-images" style="height: 500px">
+                        <li ng-repeat="image in sc.images">
+                            <img src="{{image.url}}"/>
+                        </li>
+                    </ul>
+                    <div rn-carousel-indicators ng-if="sc.images.length > 1" slides="sc.images" rn-carousel-index="carouselImages"></div>
+				</div>
+			</div>
+			<div class="panel-body">
+				<div class="row">
+            		<div class="row">
+            			<div class="station-map">
+            				<ng-map class="card-img-top" center="[40.74, -74.18]">
+            					<marker position="40.74,-74.18" title="UNIMED"></marker>
+            				</ng-map>
+            			</div>
+            		</div>
+            		<div class="row">
+            			Avaliação geral
+            			<div class="score-star-general">
+            				<i ng-repeat="star in sc.station.stars track by $index" class="fa {{star}}" aria-hidden="true"></i>
+            			</div>
+            		</div>
+                </div>
+                <div class="row">
+					<div class="subtitle">
+						Avaliações dos usuários
+						<button class="btn btn-invisible" type="button" data-toggle="collapse" data-target="#collapseNewReview" aria-expanded="false" aria-controls="collapseNewReview">
+					    	<i id="newReviewIcon" class="fa fa-angle-down" aria-hidden="true"></i>
+						</button>
 					</div>
 				</div>
-				<div class="panel-body">
-					<div class="row">
-                		<div class="row">
-                			<div class="station-map">
-                				<ng-map class="card-img-top" center="[40.74, -74.18]">
-                					<marker position="40.74,-74.18" title="UNIMED"></marker>
-                				</ng-map>
-                			</div>
-                		</div>
-                		<div class="row">
-                			Avaliação geral
-                			<div class="score-star-general">
-                				<i ng-repeat="star in sc.station.stars track by $index" class="fa {{star}}" aria-hidden="true"></i>
-                			</div>
-                		</div>
-	                </div>
-	                <div class="row">
-						<div class="subtitle">
-							Avaliações dos usuários
-							<button class="btn btn-invisible" type="button" data-toggle="collapse" data-target="#collapseNewReview" aria-expanded="false" aria-controls="collapseNewReview">
-						    	<i id="newReviewIcon" class="fa fa-angle-down" aria-hidden="true"></i>
-							</button>
-						</div>
-					</div>
-					<div class="row">
-						<div class="collapse review new-review" id="collapseNewReview">
-							<div class="row">
-								<div class="col-md-4 score-panel">
-									<div class="row" ng-repeat="score in sc.scoreStruct track by $index">
-										<div class="col-md-6 score-label">
-											{{score}}
-										</div>
-										<div class="col-md-6 score-star">
-											<div class="new-score">
-												<i id="star_{{$index}}_5" class="fa" aria-hidden="true" ng-click="sc.setReviewScore($index, 5)"></i>
-												<i id="star_{{$index}}_4" class="fa" aria-hidden="true" ng-click="sc.setReviewScore($index, 4)"></i>
-												<i id="star_{{$index}}_3" class="fa" aria-hidden="true" ng-click="sc.setReviewScore($index, 3)"></i>
-												<i id="star_{{$index}}_2" class="fa" aria-hidden="true" ng-click="sc.setReviewScore($index, 2)"></i>
-												<i id="star_{{$index}}_1" class="fa" aria-hidden="true" ng-click="sc.setReviewScore($index, 1)"></i>
-											</div>
-										</div>
+				<div class="row">
+					<div class="collapse review new-review" id="collapseNewReview">
+						<div class="row">
+							<div class="col-md-4 score-panel">
+								<div class="row" ng-repeat="score in sc.scoreStruct track by $index">
+									<div class="col-md-6 score-label">
+										{{score}}
 									</div>
-								</div>
-								<div class="col-md-8 score-comment">
-									<div class="row score-comment-title">
-										Nome do usuário
-									</div>
-									<div class="row">
-										<textarea class="form-control" id="textAreaComment" rows="3" ng-model="sc.newReview.comment"></textarea>
-									</div>
-								</div>
-							</div>
-							<div class="row footer">
-								<button type="button" class="btn btn-primary">Salvar</button>
-							</div>
-						</div>
-						<div class="review row" ng-repeat="review in sc.station.reviews | filter: sc.filterStationReviews">
-							<hr>
-							<div class="col-md-4">
-								<div ng-repeat="score in review.scores">
-									<div class="row">
-										<div class="col-md-6 score-label">
-											{{score.label}}:
-										</div>
-										<div class="col-md-6 score-star">
-											<i ng-repeat="star in score.score track by $index" class="fa {{star}}" aria-hidden="true"></i>
+									<div class="col-md-6 score-star">
+										<div class="new-score">
+											<i id="star_{{$index}}_5" class="fa" aria-hidden="true" ng-click="sc.setReviewScore($index, 5)"></i>
+											<i id="star_{{$index}}_4" class="fa" aria-hidden="true" ng-click="sc.setReviewScore($index, 4)"></i>
+											<i id="star_{{$index}}_3" class="fa" aria-hidden="true" ng-click="sc.setReviewScore($index, 3)"></i>
+											<i id="star_{{$index}}_2" class="fa" aria-hidden="true" ng-click="sc.setReviewScore($index, 2)"></i>
+											<i id="star_{{$index}}_1" class="fa" aria-hidden="true" ng-click="sc.setReviewScore($index, 1)"></i>
 										</div>
 									</div>
 								</div>
 							</div>
 							<div class="col-md-8 score-comment">
 								<div class="row score-comment-title">
-									{{review.user}}
+									Nome do usuário
 								</div>
 								<div class="row">
-									{{review.comment}}
+									<textarea class="form-control" id="textAreaComment" rows="3" ng-model="sc.newReview.comment"></textarea>
 								</div>
+							</div>
+						</div>
+						<div class="row footer">
+							<button type="button" class="btn btn-primary">Salvar</button>
+						</div>
+					</div>
+					<div class="review row" ng-repeat="review in sc.station.reviews | filter: sc.filterStationReviews">
+						<hr>
+						<div class="col-md-4">
+							<div ng-repeat="score in review.scores">
+								<div class="row">
+									<div class="col-md-6 score-label">
+										{{score.label}}:
+									</div>
+									<div class="col-md-6 score-star">
+										<i ng-repeat="star in score.score track by $index" class="fa {{star}}" aria-hidden="true"></i>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-8 score-comment">
+							<div class="row score-comment-title">
+								{{review.user}}
+							</div>
+							<div class="row">
+								{{review.comment}}
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="panel-footer">
-				</div>
+			</div>
+			<div class="panel-footer">
 			</div>
 		</div>
 	</div>
