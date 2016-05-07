@@ -36,6 +36,14 @@
 		loadStation();
 		calculateStars(self.station);
 
+		$('#collapseNewReview').on('shown.bs.collapse', function () {
+	       $("#newReviewIcon").removeClass("fa-angle-down").addClass("fa-angle-up");
+	    });
+
+	    $('#collapseNewReview').on('hidden.bs.collapse', function () {
+	       $("#newReviewIcon").removeClass("fa-angle-up").addClass("fa-angle-down");
+	    });
+
 		function loadStation() {
 			for (var i = 0; i < self.station.reviews.length; i++) {
 				self.station.reviews[i].scores = getStructuredScores(self.station.reviews[i]);

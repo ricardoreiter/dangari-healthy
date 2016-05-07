@@ -4,6 +4,9 @@
 			<div class="card panel-station">
 				<div class="panel-heading">
 					<div class="row"> 
+						<h4>
+							{{sc.station.name}}
+						</h4>
 						<ul rn-carousel rn-carousel-index="carouselImages" rn-carousel-controls class="carousel-images" style="height: 500px">
 	                        <li ng-repeat="image in sc.images">
 	                            <img src="{{image.url}}"/>
@@ -13,25 +16,105 @@
 					</div>
 				</div>
 				<div class="panel-body">
-					<h4>
-						{{sc.station.name}}
-					</h4>
-					<hr>
 					<div class="row">
                 		<div class="row">
-                			<h5>Localização</h5>
+                			Localização
                 		</div>
                 		<div class="row">
-                			<h5>Avaliação geral</h5>
+                			Avaliação geral
                 			<div class="score-star">
                 				<i ng-repeat="star in sc.station.stars track by $index" class="fa {{star}}" aria-hidden="true"></i>
                 			</div>
                 		</div>
 	                </div>
-					<h5>Avaliações dos usuários</h5>
-					<hr>
+	                <div class="row">
+						<div class="subtitle">
+							Avaliações dos usuários
+							<button class="btn btn-invisible" type="button" data-toggle="collapse" data-target="#collapseNewReview" aria-expanded="false" aria-controls="collapseNewReview">
+						    	<i id="newReviewIcon" class="fa fa-angle-down" aria-hidden="true"></i>
+							</button>
+						</div>
+					</div>
 					<div class="row">
+						<div class="collapse review new-review" id="collapseNewReview">
+							<div class="row">
+								<div class="col-md-4 score-panel">
+									<div class="row">
+										<div class="col-md-6 score-label">
+											Geral:
+										</div>
+										<div class="col-md-6 score-star">
+											<i class="fa fa-star-o" aria-hidden="true"></i>
+											<i class="fa fa-star-o" aria-hidden="true"></i>
+											<i class="fa fa-star-o" aria-hidden="true"></i>
+											<i class="fa fa-star-o" aria-hidden="true"></i>
+											<i class="fa fa-star-o" aria-hidden="true"></i>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-6 score-label">
+											Atendimento:
+										</div>
+										<div class="col-md-6 score-star">
+											<i class="fa fa-star-o" aria-hidden="true"></i>
+											<i class="fa fa-star-o" aria-hidden="true"></i>
+											<i class="fa fa-star-o" aria-hidden="true"></i>
+											<i class="fa fa-star-o" aria-hidden="true"></i>
+											<i class="fa fa-star-o" aria-hidden="true"></i>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-6 score-label">
+											Recepção:
+										</div>
+										<div class="col-md-6 score-star">
+											<i class="fa fa-star-o" aria-hidden="true"></i>
+											<i class="fa fa-star-o" aria-hidden="true"></i>
+											<i class="fa fa-star-o" aria-hidden="true"></i>
+											<i class="fa fa-star-o" aria-hidden="true"></i>
+											<i class="fa fa-star-o" aria-hidden="true"></i>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-6 score-label">
+											Estrutura física:
+										</div>
+										<div class="col-md-6 score-star">
+											<i class="fa fa-star-o" aria-hidden="true"></i>
+											<i class="fa fa-star-o" aria-hidden="true"></i>
+											<i class="fa fa-star-o" aria-hidden="true"></i>
+											<i class="fa fa-star-o" aria-hidden="true"></i>
+											<i class="fa fa-star-o" aria-hidden="true"></i>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-6 score-label">
+											Pontualidade:
+										</div>
+										<div class="col-md-6 score-star">
+											<i class="fa fa-star-o" aria-hidden="true"></i>
+											<i class="fa fa-star-o" aria-hidden="true"></i>
+											<i class="fa fa-star-o" aria-hidden="true"></i>
+											<i class="fa fa-star-o" aria-hidden="true"></i>
+											<i class="fa fa-star-o" aria-hidden="true"></i>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-8 score-comment">
+									<div class="row score-comment-title">
+										Nome do usuário
+									</div>
+									<div class="row">
+										<textarea class="form-control" id="textAreaComment" rows="3"></textarea>
+									</div>
+								</div>
+							</div>
+							<div class="row footer">
+								<button type="button" class="btn btn-primary">Salvar</button>
+							</div>
+						</div>
 						<div class="review row" ng-repeat="review in sc.station.reviews | filter: sc.filterStationReviews">
+							<hr>
 							<div class="col-md-4">
 								<div ng-repeat="score in review.scores">
 									<div class="row">
@@ -45,19 +128,13 @@
 								</div>
 							</div>
 							<div class="col-md-8 score-comment">
-								<div class="col-md-1">
-									<div class="vr"></div>
+								<div class="row score-comment-title">
+									{{review.user}}
 								</div>
-								<div class="col-md-11">
-									<div class="row score-comment-title">
-										{{review.user}}
-									</div>
-									<div class="row">
-										{{review.comment}}
-									</div>
+								<div class="row">
+									{{review.comment}}
 								</div>
 							</div>
-							<hr>
 						</div>
 					</div>
 				</div>
