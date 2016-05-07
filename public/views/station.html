@@ -39,64 +39,18 @@
 						<div class="collapse review new-review" id="collapseNewReview">
 							<div class="row">
 								<div class="col-md-4 score-panel">
-									<div class="row">
+									<div class="row" ng-repeat="score in sc.scoreStruct track by $index">
 										<div class="col-md-6 score-label">
-											Geral:
+											{{score}}
 										</div>
 										<div class="col-md-6 score-star">
-											<i class="fa fa-star-o" aria-hidden="true"></i>
-											<i class="fa fa-star-o" aria-hidden="true"></i>
-											<i class="fa fa-star-o" aria-hidden="true"></i>
-											<i class="fa fa-star-o" aria-hidden="true"></i>
-											<i class="fa fa-star-o" aria-hidden="true"></i>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-md-6 score-label">
-											Atendimento:
-										</div>
-										<div class="col-md-6 score-star">
-											<i class="fa fa-star-o" aria-hidden="true"></i>
-											<i class="fa fa-star-o" aria-hidden="true"></i>
-											<i class="fa fa-star-o" aria-hidden="true"></i>
-											<i class="fa fa-star-o" aria-hidden="true"></i>
-											<i class="fa fa-star-o" aria-hidden="true"></i>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-md-6 score-label">
-											Recepção:
-										</div>
-										<div class="col-md-6 score-star">
-											<i class="fa fa-star-o" aria-hidden="true"></i>
-											<i class="fa fa-star-o" aria-hidden="true"></i>
-											<i class="fa fa-star-o" aria-hidden="true"></i>
-											<i class="fa fa-star-o" aria-hidden="true"></i>
-											<i class="fa fa-star-o" aria-hidden="true"></i>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-md-6 score-label">
-											Estrutura física:
-										</div>
-										<div class="col-md-6 score-star">
-											<i class="fa fa-star-o" aria-hidden="true"></i>
-											<i class="fa fa-star-o" aria-hidden="true"></i>
-											<i class="fa fa-star-o" aria-hidden="true"></i>
-											<i class="fa fa-star-o" aria-hidden="true"></i>
-											<i class="fa fa-star-o" aria-hidden="true"></i>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-md-6 score-label">
-											Pontualidade:
-										</div>
-										<div class="col-md-6 score-star">
-											<i class="fa fa-star-o" aria-hidden="true"></i>
-											<i class="fa fa-star-o" aria-hidden="true"></i>
-											<i class="fa fa-star-o" aria-hidden="true"></i>
-											<i class="fa fa-star-o" aria-hidden="true"></i>
-											<i class="fa fa-star-o" aria-hidden="true"></i>
+											<div class="new-score">
+												<i id="star_{{$index}}_5" class="fa" aria-hidden="true" ng-click="sc.setReviewScore($index, 5)"></i>
+												<i id="star_{{$index}}_4" class="fa" aria-hidden="true" ng-click="sc.setReviewScore($index, 4)"></i>
+												<i id="star_{{$index}}_3" class="fa" aria-hidden="true" ng-click="sc.setReviewScore($index, 3)"></i>
+												<i id="star_{{$index}}_2" class="fa" aria-hidden="true" ng-click="sc.setReviewScore($index, 2)"></i>
+												<i id="star_{{$index}}_1" class="fa" aria-hidden="true" ng-click="sc.setReviewScore($index, 1)"></i>
+											</div>
 										</div>
 									</div>
 								</div>
@@ -105,7 +59,7 @@
 										Nome do usuário
 									</div>
 									<div class="row">
-										<textarea class="form-control" id="textAreaComment" rows="3"></textarea>
+										<textarea class="form-control" id="textAreaComment" rows="3" ng-model="sc.newReview.comment"></textarea>
 									</div>
 								</div>
 							</div>
@@ -137,6 +91,8 @@
 							</div>
 						</div>
 					</div>
+				</div>
+				<div class="panel-footer">
 				</div>
 			</div>
 		</div>

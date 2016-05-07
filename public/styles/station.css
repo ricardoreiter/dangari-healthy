@@ -18,6 +18,11 @@ body {
 	margin-bottom: 0px !important;
 }
 
+.panel-station>.panel-footer {
+	padding: 10px;
+	text-align:center;
+}
+
 .panel-station .subtitle {
 	text-align: left;
 	color: #b5b5b5;
@@ -116,4 +121,31 @@ body {
 .score-star {
 	color: #D8D300;
 	font-size: 14px;
+}
+
+.new-score {
+  unicode-bidi: bidi-override;
+  direction: rtl;
+}
+.new-score > i {
+  display: inline-block;
+  position: relative;
+}
+
+.new-score > i:before {
+    content: "\f006";
+}
+
+.new-score > .selected:before {
+    content: "\f005" !important;
+}
+
+.new-score > i:hover:before,
+.new-score > i:hover ~ i:before {
+   content: "\f005";
+   /*position: absolute;*/
+}
+
+.new-score > i:hover {
+   font-size: 16px;
 }

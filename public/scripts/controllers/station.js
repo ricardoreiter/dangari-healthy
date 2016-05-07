@@ -31,7 +31,22 @@
 				url: 'http://localhost:3000/assets/modelo-caso-de-uso-cadastro.png'
 		}];
 
+		self.newReview = {
+			user: '',
+			comment: '',
+			scoreGeneral: 0,
+		  	scoreAttendence: 0,
+		  	scoreReception: 0,
+		  	scoreStructure: 0,
+		  	scorePunctuality: 0		
+		};
+
+		self.scoreStruct = [
+			'Geral', 'Atendimento', 'Recepção', 'Estrutura física', 'Pontualidade'
+		];
+
 		self.filterStationReviews = filterStationReviews;
+		self.setReviewScore = setReviewScore;
 
 		loadStation();
 		calculateStars(self.station);
@@ -52,6 +67,32 @@
 
 		function filterStationReviews(review) {
 			return review.comment;
+		}
+
+		function setReviewScore(scoreId, score) {
+			switch (scoreId) {
+				case 0:
+					self.newReview.scoreGeneral = score;
+					break;
+				case 1:
+					self.newReview.scoreAttendence = score;
+					break;
+				case 2:
+					self.newReview.scoreReception = score;
+					break;
+				case 3:
+					self.newReview.scoreStructure = score;
+					break;
+				case 4:
+					self.newReview.scoreGeneral = score;
+					break;
+			}
+			for (var i = score; i > 0; i--) {
+				$('#star_' + scoreId + '_' + i).addClass('selected');
+			}
+			for (var i = 5; i > score; i--) {
+				$('#star_' + scoreId + '_' + i).removeClass('selected');
+			}
 		}
 
 		function getStructuredScores(review) {
