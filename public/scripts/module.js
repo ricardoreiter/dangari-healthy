@@ -6,7 +6,8 @@
         .module('dangari-healthy', [
             'ngRoute',
             'angular-loading-bar',
-            'angular-carousel'
+            'angular-carousel',
+            'ngMap'
         ]);
 
 }());

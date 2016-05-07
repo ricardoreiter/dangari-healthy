@@ -37,3 +37,9 @@
 	cursor: inherit;
 	display: block;
 }
+.angular-google-map-container {
+	height: 300px;
+}
+.angular-google-map {
+	height: 300px;
+}
