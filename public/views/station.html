@@ -18,11 +18,15 @@
 				<div class="panel-body">
 					<div class="row">
                 		<div class="row">
-                			Localização
+                			<div class="station-map">
+                				<ng-map class="card-img-top" center="[40.74, -74.18]">
+                					<marker position="40.74,-74.18" title="UNIMED"></marker>
+                				</ng-map>
+                			</div>
                 		</div>
                 		<div class="row">
                 			Avaliação geral
-                			<div class="score-star">
+                			<div class="score-star-general">
                 				<i ng-repeat="star in sc.station.stars track by $index" class="fa {{star}}" aria-hidden="true"></i>
                 			</div>
                 		</div>
