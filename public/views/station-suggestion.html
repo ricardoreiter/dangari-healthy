@@ -1,7 +1,8 @@
 <div class="container container-white">
     <br>
     <form name="formSuggestion" class="form-horizontal">
-        <legend>Sugerir nova instituição de saúde <i class="fa fa-plus-square" aria-hidden="true"></i></legend>
+        <legend ng-show="ctrl.new">Sugerir novo posto de atendimento<i class="fa fa-plus-square" aria-hidden="true"></i></legend>
+        <legend ng-show="!ctrl.new">Aprovar posto de atendimento<i class="fa fa-plus-square" aria-hidden="true"></i></legend>
         <br>
         <div class="form-group">
             <div class="row">
@@ -15,11 +16,8 @@
         </div>
         <div class="form-group">
             <div class="card station-card">
-                <p class="card-text"><small class="text-muted">Nenhuma localização selecionada</small></p>
+                <p class="card-text"><small class="text-muted">Conhece a localização? Selecione no mapa abaixo!</small></p>
                 <ng-map class="card-img-top" center="[40.74, -74.18]"></ng-map>
-                <div class="card-block">
-                     <span class="btn btn-file btn-info btn-sm">Conhece a localização? Selecione no mapa acima!</span>
-                </div>
             </div>
         </div>
         <div class="form-group">
@@ -35,10 +33,10 @@
         </div>
         <div class="row">
             <div class="col-xs-4 col-xs-6">
-               <button class="btn btn-success btn-bottom">Enviar para aprovação</button>
-               <button class="btn btn-success btn-bottom">Aprovar</button>
-               <button class="btn btn-danger btn-bottom">Recusar</button>
-               <button class="btn btn-default btn-bottom">Cancelar</button>
+               <button class="btn btn-success btn-bottom" ng-show="ctrl.new">Enviar para aprovação</button>
+               <button class="btn btn-success btn-bottom" ng-show="!ctrl.new">Aprovar</button>
+               <button class="btn btn-danger btn-bottom" ng-show="!ctrl.new">Recusar</button>
+               <button class="btn btn-default btn-bottom" ng-click="ctrl.close()">Cancelar</button>
             </div>
         </div>
     </form>

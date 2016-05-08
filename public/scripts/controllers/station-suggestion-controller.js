@@ -4,8 +4,10 @@
 
     angular.module('dangari-healthy').controller('StationSuggestionController', StationSuggestionController);
 
-    function StationSuggestionController($scope, NgMap) {
+    function StationSuggestionController($scope, NgMap, station, $uibModalInstance) {
         var self = this;
+        self.new = station === null;
+        self.station = station;
 
         NgMap.getMap().then(function(map) {
             console.log(map.getCenter());
@@ -21,7 +23,7 @@
                 byteArray.push(val);
             });
             return byteArray;
-        };
+        }
 
         function loadImage(file, onLoadUrlImagem, onLoadBufferImagem) {
             // Gera uma URL para ser utilizada no img do form
@@ -33,7 +35,7 @@
             reader = new FileReader();
             reader.onload = onLoadBufferImagem;
             reader.readAsArrayBuffer(file);
-        };
+        }
 
 
         self.loadImage = function (file) {
@@ -49,6 +51,10 @@
             self.station.image = {
                 bytes: onLoadBufferImagem(file)
             };
+        };
+
+        self.close = function(){
+            $uibModalInstance.dismiss('cancel');
         };
 
     }

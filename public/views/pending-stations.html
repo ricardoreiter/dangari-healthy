@@ -1,0 +1,19 @@
+<div class="container container-blank">
+    <br>
+    <h2>Postos de atendimento pendentes</h2>
+    <p>Para habilitá-lo, clique sobre um posto de atendimento</p>
+    <table class="table table-striped table-hover">
+        <thead>
+        <tr>
+            <th>Posto de atendimento</th>
+            <th>Localização</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="station in ctrl.stations" ng-show="station.pending" ng-click="ctrl.open(station)">
+            <td>{{station.name}}</td>
+            <td>{{station.location}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>

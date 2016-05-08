@@ -20,6 +20,12 @@
                 controllerAs: 'ctrl'
             })
 
+            .when('/pending-stations', {
+                templateUrl: 'views/pending-stations.html',
+                controller: 'PendingStationsCtrl',
+                controllerAs: 'ctrl'
+            })
+
             .when('/profile-settings', {
                 templateUrl: 'views/profile-settings.html',
                 controller: 'ProfileSettingsCtrl',
