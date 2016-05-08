@@ -1,0 +1,23 @@
+<div class="container container-blank">
+    <br>
+    <h2>Usuários - Painel de Administração</h2>
+    <input type="text" class="form-control" placeholder="Buscar" ng-model="ctrl.userFilter"/>
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Login</th>
+                <th>Email</th>
+                <th>Nível da conta</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="user in ctrl.users | filter:ctrl.userFilter" ng-click="ctrl.openUser(user)">
+                <td>{{user.name}}</td>
+                <td>{{user.login}}</td>
+                <td>{{user.email}}</td>
+                <td>{{user.accountLevel}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

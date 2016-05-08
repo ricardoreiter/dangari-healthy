@@ -5,8 +5,13 @@
     angular.module('dangari-healthy')
         .controller('ProfileSettingsCtrl', ProfileSettingsCtrl);
 
-    function ProfileSettingsCtrl($scope) {
+    function ProfileSettingsCtrl($scope, user) {
         var vm = this;
+
+        if (user) {
+            vm.profile = user;
+            vm.adminMode = true;
+        }
 
         function onLoadBufferImagem(file){
             var uintArray = new Uint8Array(file.target.result);

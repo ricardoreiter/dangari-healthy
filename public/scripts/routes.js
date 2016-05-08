@@ -29,19 +29,24 @@
             .when('/profile-settings', {
                 templateUrl: 'views/profile-settings.html',
                 controller: 'ProfileSettingsCtrl',
-                controllerAs: 'vm'
+                controllerAs: 'vm',
+                resolve: {
+                    user: function() {
+                        return undefined;
+                    }
+                }
             })
-            //Essas duas outras rotas, por enquanto são só para testes. Depois acho que vamos abrir em modais.
+
             .when('/login', {
                 templateUrl: 'views/login.html',
                 controller: 'LoginCtrl',
                 controllerAs: 'lc'
             })
 
-            .when('/station', {
-                templateUrl: 'views/station.html',
-                controller: 'StationCtrl',
-                controllerAs: 'sc'
+            .when('/users', {
+                templateUrl: 'views/users.html',
+                controller: 'UsersCtrl',
+                controllerAs: 'ctrl'
             });
     }
 }());
