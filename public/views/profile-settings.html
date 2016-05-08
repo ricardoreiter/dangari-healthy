@@ -1,0 +1,23 @@
+<div class="container-profile">
+    <h3>Editar Perfil</h3>
+    <img class="img-profile" ng-src="{{vm.urlImagem}}">
+    <span class="btn btn-file btn-info btn-sm btn-avatar">Alterar avatar
+        <input name="imagem" type="file" ng-model="img" onchange="angular.element(this).scope().vm.loadImage(this.files[0])">
+    </span>
+    <label for="name"><b>Nome:</b></label>
+    <br>
+    <input type="text" class="form-control" placeholder="Nome e sobrenome" ng-model="vm.profile.name">
+    <label for="email"><b>Email:</b></label>
+    <br>
+    <div class="input-group">
+        <input type="text" class="form-control" placeholder="Endereço de email" aria-describedby="basic-addon2" ng-model="vm.profile.email">
+        <span class="input-group-addon" id="basic-addon2">@</span>
+    </div>
+    <label for="password"><b>Senha:</b></label>
+    <br>
+    <input type="password" class="form-control" placeholder="Senha" ng-model="vm.profile.password">
+    <label for="confirmPassword"><b>Confirmar senha:</b></label>
+    <br>
+    <input type="password" class="form-control" placeholder="Confirmar senha" ng-model="vm.profile.confirmPassword">
+    <button class="btn btn-success">Atualizar Perfil</button>
+</div>

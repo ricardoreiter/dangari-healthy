@@ -2,17 +2,11 @@
 (function() {
     'use-strict';
 
-    angular.module('dangari-healthy').controller('StationSuggestionController', StationSuggestionController);
+    angular.module('dangari-healthy')
+        .controller('ProfileSettingsCtrl', ProfileSettingsCtrl);
 
-    function StationSuggestionController($scope, NgMap) {
-        var self = this;
-
-        NgMap.getMap().then(function(map) {
-            console.log(map.getCenter());
-            console.log('markers', map.markers);
-            console.log('shapes', map.shapes);
-        });
-
+    function ProfileSettingsCtrl($scope) {
+        var vm = this;
 
         function onLoadBufferImagem(file){
             var uintArray = new Uint8Array(file.target.result);
@@ -36,20 +30,19 @@
         };
 
 
-        self.loadImage = function (file) {
-            loadImage(file, self.onLoadUrlImagem, self.onLoadBufferImagem);
+        vm.loadImage = function (file) {
+            loadImage(file, vm.onLoadUrlImagem, vm.onLoadBufferImagem);
         };
 
-        self.onLoadUrlImagem = function (file) {
-            self.urlImagem = file.target.result;
+        vm.onLoadUrlImagem = function (file) {
+            vm.urlImagem = file.target.result;
             $scope.$apply();
         };
 
-        self.onLoadBufferImagem = function (file) {
-            self.station.image = {
+        vm.onLoadBufferImagem = function (file) {
+            vm.station.image = {
                 bytes: onLoadBufferImagem(file)
             };
         };
-
     }
 }());
