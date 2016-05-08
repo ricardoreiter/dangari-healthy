@@ -4,9 +4,15 @@
 
     angular.module('dangari-healthy').controller('StationSuggestionController', StationSuggestionController);
 
-    function StationSuggestionController($scope) {
+    function StationSuggestionController($scope, NgMap) {
         var self = this;
         console.log('carregou!!!');
+
+        NgMap.getMap().then(function(map) {
+            console.log(map.getCenter());
+            console.log('markers', map.markers);
+            console.log('shapes', map.shapes);
+        });
 
 
         function onLoadBufferImagem(file){

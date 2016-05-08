@@ -5,12 +5,23 @@
     angular.module('dangari-healthy')
         .controller('HomeCtrl', HomeCtrl);
 
-    function HomeCtrl($scope, StationSvc) {
+    function HomeCtrl($scope, StationSvc, $uibModal) {
         var vm = this;
 
         vm.stations = StationSvc.getAll();
 
+        vm.openStation = openStation;
+
         calculateStars(vm.stations);
+
+        function openStation(station) {
+            $uibModal.open({
+                templateUrl: 'views/station.html',
+                controller: 'StationCtrl',
+                controllerAs: 'sc',
+                size: 'lg'
+            });
+        }
 
         function calculateStars(stations) {
             for (var i = 0; i < stations.length; i++) {

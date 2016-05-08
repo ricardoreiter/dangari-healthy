@@ -13,30 +13,46 @@ body {
 	border-color: #fff;
 	text-align:center;
 }
-.panel-station>.panel-heading a{
-	text-decoration: none;
-	color: #666;
-	font-weight: bold;
-	font-size: 15px;
-	-webkit-transition: all 0.1s linear;
-	-moz-transition: all 0.1s linear;
-	transition: all 0.1s linear;
+.panel-station>.panel-heading h4{
+	padding: 5px;
+	margin-bottom: 0px !important;
 }
-.panel-station>.panel-heading a.active{
-	color: #029f5b;
-	font-size: 18px;
+
+.panel-station>.panel-footer {
+	padding: 10px;
+	text-align:center;
 }
-.panel-station>.panel-heading hr{
-	margin-top: 10px;
-	margin-bottom: 0px;
+
+.panel-station .subtitle {
+	text-align: left;
+	color: #b5b5b5;
+    font-size: 14px;
+    font-weight: normal;
+    padding: 16px 40px 0px 40px;
+}
+
+.btn-invisible {
+	background-color: transparent;
+}
+
+.btn-invisible:hover, .btn-invisible:active, .btn-invisible:focus, .btn-invisible:active:focus {
+	color: black;
+    outline: none;
+}
+
+.panel-station hr{
+	margin-top: 5px;
+	margin-bottom: 5px;
 	clear: both;
-	border: 0;
+	border-top: 1px solid #efefef;
 	height: 1px;
-	background-image: -webkit-linear-gradient(left,rgba(0, 0, 0, 0),rgba(0, 0, 0, 0.15),rgba(0, 0, 0, 0));
-	background-image: -moz-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,0.15),rgba(0,0,0,0));
-	background-image: -ms-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,0.15),rgba(0,0,0,0));
-	background-image: -o-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,0.15),rgba(0,0,0,0));
+	margin: 16px 40px;
 }
+
+.review hr{
+	margin: 16px 10px;
+}
+
 .panel-station input[type="text"],.panel-station input[type="email"],.panel-station input[type="password"] {
 	height: 45px;
 	border: 1px solid #ddd;
@@ -58,11 +74,82 @@ body {
 	text-align: center;
 }
 
-.review {
-	padding: 15px;
-	border-bottom: 1px solid;
+.carousel-images {
+	margin-right: 15px;
+	margin-left: 15px;
 }
 
-.score-star {
+.review {
+	font-size: 14px;
+    font-weight: normal;
+	padding-left: 15px;
+	padding-right: 15px;
+	margin-right: 15px;
+	margin-left: 15px;
+}
 
+.new-review .footer {
+	text-align: right;
+	padding-right: 30px;
+}
+
+.new-review .score-comment {
+	padding-right: 40px;
+	padding-bottom: 10px;
+	/*text-align: right;
+	padding-right: 40px;*/
+}
+
+.new-review .score-panel {
+	padding-top: 10px;
+}
+
+.review .score-label {
+	text-align: right;
+	padding-left: 0px;
+	padding-right: 0px;
+}
+
+.review .score-star {
+	text-align: left;
+	color: #D8D300;
+	font-size: 14px;
+	padding-left: 8px;
+	padding-right: 0px;
+}
+
+.score-star-general {
+	color: #D8D300;
+	font-size: 20px;
+}
+
+.new-score {
+  unicode-bidi: bidi-override;
+  direction: rtl;
+}
+.new-score > i {
+  display: inline-block;
+  position: relative;
+}
+
+.new-score > i:before {
+    content: "\f006";
+}
+
+.new-score > .selected:before {
+    content: "\f005" !important;
+}
+
+.new-score > i:hover:before,
+.new-score > i:hover ~ i:before {
+   content: "\f005";
+   /*position: absolute;*/
+}
+
+.new-score > i:hover {
+   font-size: 16px;
+}
+
+.station-map {
+	padding: 16px 60px;
 }
