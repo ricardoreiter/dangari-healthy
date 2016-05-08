@@ -5,7 +5,7 @@
             <img src="{{station.image}}" alt="NO" class="card-img-top img-responsive portlet-img">
             <div class="card-block">
                 <h3>{{station.name}}</h3>
-                <i ng-repeat="star in station.stars track by $index" class="fa {{star}}" aria-hidden="true"></i>
+                <i ng-repeat="star in station.stars track by $index" class="fa {{star}} score-star-general" aria-hidden="true"></i>
                 <hr/> {{station.scoreAverage}}
                 <br> {{station.address}}
             </div>

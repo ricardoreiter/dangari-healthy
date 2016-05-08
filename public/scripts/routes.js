@@ -18,18 +18,13 @@
                 templateUrl: 'views/station-suggestion.html',
                 controller: 'StationSuggestionController',
                 controllerAs: 'ctrl'
-            });
-
+            })
             //Essas duas outras rotas, por enquanto são só para testes. Depois acho que vamos abrir em modais.
-            $routeProvider
-
-                .when('/login', {
-                    templateUrl: 'views/login.html',
-                    controller: 'LoginCtrl',
-                    controllerAs: 'lc'
-                });
-
-            $routeProvider
+            .when('/login', {
+                templateUrl: 'views/login.html',
+                controller: 'LoginCtrl',
+                controllerAs: 'lc'
+            })
 
             .when('/station', {
                 templateUrl: 'views/station.html',
@@ -37,5 +32,4 @@
                 controllerAs: 'sc'
             });
     }
-
 }());
