@@ -11,7 +11,6 @@
         vm.stations = StationSvc.getAll();
 
         vm.openStation = openStation;
-        vm.openSuggestion = openSuggestion;
 
         calculateStars(vm.stations);
 
@@ -21,20 +20,6 @@
                 controller: 'StationCtrl',
                 controllerAs: 'sc',
                 size: 'lg'
-            });
-        }
-
-        function openSuggestion() {
-            $uibModal.open({
-                templateUrl: 'views/station-suggestion.html',
-                controller: 'StationSuggestionController',
-                controllerAs: 'ctrl',
-                size: 'lg',
-                resolve: {
-                    station: function () {
-                        return null;
-                    }
-                }
             });
         }
 

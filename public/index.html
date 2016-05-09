@@ -20,7 +20,7 @@
 
 <body>
     <!--Begin Header-->
-    <nav class="navbar navbar-default navbar-fixed-top" ng-controller="HomeCtrl as ctrl">
+    <nav class="navbar navbar-default navbar-fixed-top" ng-controller="IndexCtrl as ic">
         <div class="container-fluid">
             <div class="navbar-btn">
                 <div class="row">
@@ -54,12 +54,12 @@
                                 <i class="fa fa-user" aria-hidden="true"></i></i>
                             </button>
                             <ul class="dropdown-menu dropdown-menu-right">
-                                <li><a class="dropdown-item" style="cursor: pointer;" data-ng-click="ctrl.openSuggestion()">Sugerir ponto de atendimento</a></li>
+                                <li><a class="dropdown-item" style="cursor: pointer;" data-ng-click="ic.openSuggestion()">Sugerir ponto de atendimento</a></li>
                                 <li role="separator" class="dropdown-divider"></li>
                                 <li><a class="dropdown-item" href="/#/pending-stations">Verificar ponto(s) de atendimento pendentes</a></li>
                                 <li><a class="dropdown-item" href="/#/users">Usuários</a></li>
                                 <li role="separator" class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="#">Sair</a></li>
+                                <li><a class="dropdown-item" href="" ng-click="ic.logout()">Sair</a></li>
                             </ul>
                         </div>
                     </div>
@@ -92,6 +92,7 @@
     <script src="scripts/services/station.js"></script>
     <script src="scripts/services/login.js"></script>
     <script src="scripts/services/local-storage.js"></script>
+    <script src="scripts/controllers/index.js"></script>
     <script src="scripts/controllers/home.js"></script>
     <script src="scripts/controllers/profile-settings.js"></script>
     <script src="scripts/controllers/login.js"></script>

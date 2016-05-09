@@ -6,8 +6,4 @@ router.get('/', function(req, res, next) {
   res.render('login.html');
 });
 
-router.get('/view-station', function(req, res, next) {
-  res.render('station.html');
-});
-
 module.exports = router;
