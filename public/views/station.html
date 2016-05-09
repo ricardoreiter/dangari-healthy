@@ -86,11 +86,21 @@
 						</div>
 						<div class="col-md-8 score-comment">
 							<div class="row score-comment-title">
-								{{review.user}}
+								<div class="col-md-11">
+									{{review.user}}
+								</div>
+								<div class="col-md-1">
+									<span class="report-button" data-toggle="tooltip" title="Denunciar comentário abusivo" ng-click="sc.reportReview(review)">
+										<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+									</span>
+								</div>
 							</div>
 							<div class="row">
-								{{review.comment}}
+								<div class="col-md-11">
+									{{review.comment}}
+								</div>
 							</div>
+								
 						</div>
 					</div>
 				</div>

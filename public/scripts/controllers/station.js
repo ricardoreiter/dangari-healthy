@@ -1,6 +1,6 @@
 (function () {
 
-	angular.module('dangari-healthy').controller('StationCtrl', function($http, $scope) {
+	angular.module('dangari-healthy').controller('StationCtrl', function($http, $scope, $uibModal) {
 		var self = this;
 
 		self.station = {
@@ -47,6 +47,7 @@
 
 		self.filterStationReviews = filterStationReviews;
 		self.setReviewScore = setReviewScore;
+		self.reportReview = reportReview;
 
 		loadStation();
 		calculateStars(self.station);
@@ -134,6 +135,27 @@
                 }
             }
             return stars;
+        }
+
+        function reportReview(review) {
+        	var modalInstance = $uibModal.open({
+                templateUrl: 'views/confirmation-modal.html',
+                controller: 'ConfirmationModalCtrl',
+                controllerAs: 'mc',
+                resolve: {
+                	title: function() {
+                		return 'Confirmação';
+                	},
+                	description: function() {
+                		return 'Você tem certeza que quer denunciar este comentário por conteúdo abusivo/ofensivo?'
+                	}
+                }
+            });
+
+            modalInstance.result.then(function() {
+            	toastr.success('Comentário denunciado com sucesso!');
+            }, function() {});
+        	
         }
 
 	});

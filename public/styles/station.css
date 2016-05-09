@@ -118,6 +118,10 @@ body {
 	padding-right: 0px;
 }
 
+.review .report-button {
+	cursor: pointer;
+}
+
 .score-star-general {
 	color: #D8D300;
 	font-size: 20px;
