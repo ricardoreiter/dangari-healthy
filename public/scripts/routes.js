@@ -16,7 +16,7 @@
 
             .when('/suggestion', {
                 templateUrl: 'views/station-suggestion.html',
-                controller: 'StationSuggestionController',
+                controller: 'StationSuggestionCtrl',
                 controllerAs: 'ctrl'
             })
 

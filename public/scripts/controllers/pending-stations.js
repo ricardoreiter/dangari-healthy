@@ -21,7 +21,7 @@
         self.open = function(s){
             $uibModal.open({
                 templateUrl: 'views/station-suggestion.html',
-                controller: 'StationSuggestionController',
+                controller: 'StationSuggestionCtrl',
                 controllerAs: 'ctrl',
                 size: 'lg',
                 resolve: {

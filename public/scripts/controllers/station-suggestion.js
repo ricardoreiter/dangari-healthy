@@ -2,9 +2,9 @@
 (function() {
     'use-strict';
 
-    angular.module('dangari-healthy').controller('StationSuggestionController', StationSuggestionController);
+    angular.module('dangari-healthy').controller('StationSuggestionCtrl', StationSuggestionCtrl);
 
-    function StationSuggestionController($scope, NgMap, station, $uibModalInstance) {
+    function StationSuggestionCtrl($scope, NgMap, station, $uibModalInstance) {
         var self = this;
         self.new = station === null;
         self.station = station;
