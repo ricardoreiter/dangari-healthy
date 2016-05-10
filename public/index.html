@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="/styles/station-suggestion.css"/>
     <link rel="stylesheet" href="/styles/pending-suggestions.css"/>
     <link rel="stylesheet" href="/styles/users.css"/>
+    <link rel="stylesheet" href="/styles/reports.css">
 </head>
 
 <body>
@@ -54,10 +55,11 @@
                                 <i class="fa fa-user" aria-hidden="true"></i></i>
                             </button>
                             <ul class="dropdown-menu dropdown-menu-right">
-                                <li><a class="dropdown-item" style="cursor: pointer;" data-ng-click="ic.openSuggestion()">Sugerir ponto de atendimento</a></li>
+                                <li><a class="dropdown-item" style="cursor: pointer;" data-ng-click="ic.openSuggestion()">Sugerir novo ponto de atendimento</a></li>
                                 <li><a class="dropdown-item" href="/#/profile-settings">Editar perfil</a></li>
                                 <li role="separator" class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="/#/pending-stations">Verificar ponto(s) de atendimento pendentes</a></li>
+                                <li><a class="dropdown-item" href="/#/pending-stations">Pontos de atendimento pendentes</a></li>
+                                <li><a class="dropdown-item" href="/#/reports">Denúncias de comentários abusivos</a></li>
                                 <li><a class="dropdown-item" href="/#/users">Usuários</a></li>
                                 <li role="separator" class="dropdown-divider"></li>
                                 <li><a class="dropdown-item" href="" ng-click="ic.logout()">Sair</a></li>
@@ -101,6 +103,7 @@
     <script src="scripts/controllers/station-suggestion-controller.js"></script>
     <script src="scripts/controllers/pending-stations.js"></script>
     <script src="scripts/controllers/users.js"></script>
+    <script src="scripts/controllers/reports.js"></script>
     <script src="scripts/controllers/confirmation-modal.js"></script>
     <script src="scripts/routes.js"></script>
     <script src="scripts/session-auth-injector.js"></script>

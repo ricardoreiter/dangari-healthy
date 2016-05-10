@@ -37,15 +37,15 @@
                 }
             })
 
-            .when('/login', {
-                templateUrl: 'views/login.html',
-                controller: 'LoginCtrl',
-                controllerAs: 'lc'
-            })
-
             .when('/users', {
                 templateUrl: 'views/users.html',
                 controller: 'UsersCtrl',
+                controllerAs: 'ctrl'
+            })
+
+            .when('/reports', {
+                templateUrl: 'views/reports.html',
+                controller: 'ReportsCtrl',
                 controllerAs: 'ctrl'
             });
     }
