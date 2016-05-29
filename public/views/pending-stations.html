@@ -10,7 +10,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="station in ctrl.stations" ng-show="station.pending" ng-click="ctrl.open(station)">
+        <tr ng-repeat="station in ctrl.stations" ng-click="ctrl.open(station)">
             <td>{{station.name}}</td>
             <td>{{station.location}}</td>
         </tr>

@@ -29,9 +29,9 @@
         <br><br>
         <div class="row">
             <div class="col-xs-4 col-xs-6">
-               <button class="btn btn-success btn-bottom" ng-show="ctrl.new">Enviar para aprovação</button>
-               <button class="btn btn-success btn-bottom" ng-show="!ctrl.new">Aprovar</button>
-               <button class="btn btn-danger btn-bottom" ng-show="!ctrl.new">Recusar</button>
+               <button class="btn btn-success btn-bottom" ng-show="ctrl.new" ng-click="ctrl.add(ctrl.station)">Enviar para aprovação</button>
+               <button class="btn btn-success btn-bottom" ng-show="!ctrl.new" ng-click="ctrl.approve(ctrl.station)">Aprovar</button>
+               <button class="btn btn-danger btn-bottom" ng-show="!ctrl.new" ng-click="ctrl.remove(ctrl.station._id)">Recusar</button>
                <button class="btn btn-default btn-bottom" ng-click="ctrl.close()">Cancelar</button>
             </div>
         </div>

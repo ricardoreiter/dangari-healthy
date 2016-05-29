@@ -8,7 +8,24 @@
     function HomeCtrl($scope, StationSvc, $uibModal) {
         var vm = this;
 
-        vm.stations = StationSvc.getAll();
+        vm.stations = [];
+
+        function _getAll() {
+            StationSvc.getAll()
+                .then(
+                    function(response) {
+                        if (response) {
+                            vm.stations = response;
+                        } else {
+                            toastr.error('Ocorreu um erro ao realizar login');
+                        }
+                    },
+                    function(error) {
+                        toastr.error('Ocorreu um erro ao realizar login');
+                    }
+                );
+        }
+        _getAll();
 
         vm.openStation = openStation;
 

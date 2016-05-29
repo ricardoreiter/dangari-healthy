@@ -1,35 +1,39 @@
-(function () {
+(function() {
 
-    angular.module('dangari-healthy').controller('PendingStationsCtrl', function ($uibModal) {
+    angular.module('dangari-healthy').controller('PendingStationsCtrl', function($uibModal, StationSvc) {
         var self = this;
+        self.stations = [];
 
-        self.stations = [{
-            name: 'UNIMED - Vila Nova',
-            location: 'Vila Nova',
-            pending: true
-        }, {
-            name: 'UNIMED',
-            location: 'Fortaleza',
-            pending: true
-        }, {
-            name: 'Casa da paz',
-            location: 'Indaial',
-            pending: false
+        function _getPendings() {
+            StationSvc.getPendings()
+                .then(
+                    function(response) {
+                        if (response) {
+                            self.stations = response;
+                        } else {
+                            toastr.error('Ocorreu um erro ao realizar login');
+                        }
+                    },
+                    function(error) {
+                        toastr.error('Ocorreu um erro ao realizar login');
+                    }
+                );
         }
-        ];
+        _getPendings();
 
-        self.open = function(s){
+        self.open = function(s) {
             $uibModal.open({
                 templateUrl: 'views/station-suggestion.html',
                 controller: 'StationSuggestionCtrl',
                 controllerAs: 'ctrl',
                 size: 'lg',
                 resolve: {
-                    station: function () {
+                    station: function() {
                         return s;
                     }
                 }
             });
+
         };
 
     });

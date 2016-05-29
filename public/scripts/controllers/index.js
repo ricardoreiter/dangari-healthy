@@ -21,7 +21,7 @@
                         function(response) {
                             if (response) {
                                 self.user = response.data;
-                                toastr.success('Logado com sucesso!');
+                                // toastr.success('Logado com sucesso!');
                             } else {
                                 toastr.error('Ocorreu um erro ao realizar login');
                                 window.location = '/login-view';
@@ -59,7 +59,7 @@
                 LocalStorageSvc.deleteAuthToken();
                 window.location = '/login-view';
             }, function() {});
-            
+
         }
 
         function openSuggestion() {

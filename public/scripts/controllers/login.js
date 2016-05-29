@@ -44,7 +44,6 @@
 	                    function(response) {
 	                    	if (response) {
 	                    		self.user = response.data;
-	                        	toastr.success('Logado com sucesso!');
 	                        	window.location = '/#/';
 	                    	} else {
 	                    		toastr.error('Ocorreu um erro ao realizar login');

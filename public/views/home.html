@@ -2,12 +2,12 @@
     <div class="card-columns">
         <div ng-repeat="station in vm.stations" class="card station-card" ng-click="vm.openStation(station)">
             <!--<div class="portlet">-->
-            <img src="{{station.image}}" alt="NO" class="card-img-top img-responsive portlet-img">
+            <img src="{{station.photo}}" alt="NO" class="card-img-top img-responsive portlet-img">
             <div class="card-block">
                 <h3>{{station.name}}</h3>
                 <i ng-repeat="star in station.stars track by $index" class="fa {{star}} score-star-general" aria-hidden="true"></i>
                 <hr/> {{station.scoreAverage}}
-                <br> {{station.address}}
+                <br> {{station.location}}
             </div>
         </div>
     </div>

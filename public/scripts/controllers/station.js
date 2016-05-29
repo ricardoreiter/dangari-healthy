@@ -1,121 +1,120 @@
-(function () {
+(function() {
 
-	angular.module('dangari-healthy').controller('StationCtrl', function($http, $scope, $uibModal) {
-		var self = this;
+    angular.module('dangari-healthy').controller('StationCtrl', function($http, $scope, $uibModal) {
+        var self = this;
 
-		self.station = {
-			name: 'UNIMED - Vila Nova',
-			scoreAverage: 3.5,
-			reviews: [{
-			  	scoreGeneral: 0,
-			  	scoreAttendence: 1,
-			  	scoreReception: 2,
-			  	scoreStructure: 2,
-			  	scorePunctuality: 0,
-			  	user: 'Gabriel Biz',
-			  	comment: 'Uma bostaaaa, odieiii, uiii'
-			}, {
-			  	scoreGeneral: 5,
-			  	scoreAttendence: 5,
-			  	scoreReception: 5,
-			  	scoreStructure: 5,
-			  	scorePunctuality: 5,
-			  	user: 'Seu zeca',
-			  	comment: 'Rapaz que atendimento bão sô se é loco o atendente me atendeu bem ta ligado pq o baguio é doido mermo bixão o.O'
-			}]
-		};
+        self.station = {
+            name: 'UNIMED - Vila Nova',
+            scoreAverage: 3.5,
+            reviews: [{
+                scoreGeneral: 0,
+                scoreAttendence: 1,
+                scoreReception: 2,
+                scoreStructure: 2,
+                scorePunctuality: 0,
+                user: 'Gabriel Biz',
+                comment: 'Uma bostaaaa, odieiii, uiii'
+            }, {
+                scoreGeneral: 5,
+                scoreAttendence: 5,
+                scoreReception: 5,
+                scoreStructure: 5,
+                scorePunctuality: 5,
+                user: 'Seu zeca',
+                comment: 'Rapaz que atendimento bão sô se é loco o atendente me atendeu bem ta ligado pq o baguio é doido mermo bixão o.O'
+            }]
+        };
 
-		self.images = [{
-				url: 'http://localhost:3000/assets/modelo-caso-de-uso-alteracoes.png'
-			}, {
-				url: 'http://localhost:3000/assets/modelo-caso-de-uso-cadastro.png'
-		}];
 
-		self.newReview = {
-			user: '',
-			comment: '',
-			scoreGeneral: 0,
-		  	scoreAttendence: 0,
-		  	scoreReception: 0,
-		  	scoreStructure: 0,
-		  	scorePunctuality: 0		
-		};
+        self.images = [{
+            url: 'http://localhost:3000/assets/modelo-caso-de-uso-alteracoes.png'
+        }, {
+            url: 'http://localhost:3000/assets/modelo-caso-de-uso-cadastro.png'
+        }];
 
-		self.scoreStruct = [
-			'Geral', 'Atendimento', 'Recepção', 'Estrutura física', 'Pontualidade'
-		];
+        self.newReview = {
+            user: '',
+            comment: '',
+            scoreGeneral: 0,
+            scoreAttendence: 0,
+            scoreReception: 0,
+            scoreStructure: 0,
+            scorePunctuality: 0
+        };
 
-		self.filterStationReviews = filterStationReviews;
-		self.setReviewScore = setReviewScore;
-		self.reportReview = reportReview;
+        self.scoreStruct = [
+            'Geral', 'Atendimento', 'Recepção', 'Estrutura física', 'Pontualidade'
+        ];
 
-		loadStation();
-		calculateStars(self.station);
+        self.filterStationReviews = filterStationReviews;
+        self.setReviewScore = setReviewScore;
+        self.reportReview = reportReview;
 
-		$('#collapseNewReview').on('shown.bs.collapse', function () {
-	       $("#newReviewIcon").removeClass("fa-angle-down").addClass("fa-angle-up");
-	    });
+        loadStation();
+        calculateStars(self.station);
 
-	    $('#collapseNewReview').on('hidden.bs.collapse', function () {
-	       $("#newReviewIcon").removeClass("fa-angle-up").addClass("fa-angle-down");
-	    });
+        $('#collapseNewReview').on('shown.bs.collapse', function() {
+            $("#newReviewIcon").removeClass("fa-angle-down").addClass("fa-angle-up");
+        });
 
-		function loadStation() {
-			for (var i = 0; i < self.station.reviews.length; i++) {
-				self.station.reviews[i].scores = getStructuredScores(self.station.reviews[i]);
-			}
-		}
+        $('#collapseNewReview').on('hidden.bs.collapse', function() {
+            $("#newReviewIcon").removeClass("fa-angle-up").addClass("fa-angle-down");
+        });
 
-		function filterStationReviews(review) {
-			return review.comment;
-		}
+        function loadStation() {
+            for (var i = 0; i < self.station.reviews.length; i++) {
+                self.station.reviews[i].scores = getStructuredScores(self.station.reviews[i]);
+            }
+        }
 
-		function setReviewScore(scoreId, score) {
-			switch (scoreId) {
-				case 0:
-					self.newReview.scoreGeneral = score;
-					break;
-				case 1:
-					self.newReview.scoreAttendence = score;
-					break;
-				case 2:
-					self.newReview.scoreReception = score;
-					break;
-				case 3:
-					self.newReview.scoreStructure = score;
-					break;
-				case 4:
-					self.newReview.scoreGeneral = score;
-					break;
-			}
-			for (var i = score; i > 0; i--) {
-				$('#star_' + scoreId + '_' + i).addClass('selected');
-			}
-			for (var i = 5; i > score; i--) {
-				$('#star_' + scoreId + '_' + i).removeClass('selected');
-			}
-		}
+        function filterStationReviews(review) {
+            return review.comment;
+        }
 
-		function getStructuredScores(review) {
-			return [
-				{
-					label: 'Geral',
-					score: getStars(review.scoreGeneral)
-				}, {
-					label: 'Atendimento',
-					score: getStars(review.scoreAttendence)
-				}, {
-					label: 'Recepção',
-					score: getStars(review.scoreReception)
-				}, {
-					label: 'Estrutura física',
-					score: getStars(review.scoreStructure)
-				}, {
-					label: 'Pontualidade',
-					score: getStars(review.scorePunctuality)
-				}
-			];
-		}
+        function setReviewScore(scoreId, score) {
+            switch (scoreId) {
+                case 0:
+                    self.newReview.scoreGeneral = score;
+                    break;
+                case 1:
+                    self.newReview.scoreAttendence = score;
+                    break;
+                case 2:
+                    self.newReview.scoreReception = score;
+                    break;
+                case 3:
+                    self.newReview.scoreStructure = score;
+                    break;
+                case 4:
+                    self.newReview.scoreGeneral = score;
+                    break;
+            }
+            for (var i = score; i > 0; i--) {
+                $('#star_' + scoreId + '_' + i).addClass('selected');
+            }
+            for (var i = 5; i > score; i--) {
+                $('#star_' + scoreId + '_' + i).removeClass('selected');
+            }
+        }
+
+        function getStructuredScores(review) {
+            return [{
+                label: 'Geral',
+                score: getStars(review.scoreGeneral)
+            }, {
+                label: 'Atendimento',
+                score: getStars(review.scoreAttendence)
+            }, {
+                label: 'Recepção',
+                score: getStars(review.scoreReception)
+            }, {
+                label: 'Estrutura física',
+                score: getStars(review.scoreStructure)
+            }, {
+                label: 'Pontualidade',
+                score: getStars(review.scorePunctuality)
+            }];
+        }
 
         function calculateStars(station) {
             station.stars = getStars(station.scoreAverage);
@@ -138,26 +137,26 @@
         }
 
         function reportReview(review) {
-        	var modalInstance = $uibModal.open({
+            var modalInstance = $uibModal.open({
                 templateUrl: 'views/confirmation-modal.html',
                 controller: 'ConfirmationModalCtrl',
                 controllerAs: 'mc',
                 resolve: {
-                	title: function() {
-                		return 'Confirmação';
-                	},
-                	description: function() {
-                		return 'Você tem certeza que quer denunciar este comentário por conteúdo abusivo/ofensivo?'
-                	}
+                    title: function() {
+                        return 'Confirmação';
+                    },
+                    description: function() {
+                        return 'Você tem certeza que quer denunciar este comentário por conteúdo abusivo/ofensivo?'
+                    }
                 }
             });
 
             modalInstance.result.then(function() {
-            	toastr.success('Comentário denunciado com sucesso!');
+                toastr.success('Comentário denunciado com sucesso!');
             }, function() {});
-        	
+
         }
 
-	});
+    });
 
 }());
