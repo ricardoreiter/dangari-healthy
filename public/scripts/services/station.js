@@ -4,7 +4,7 @@
     angular.module('dangari-healthy')
         .factory('StationSvc', Station);
 
-    function Station($http) {
+    function Station($http, $q) {
 
         return {
             getPendings: _getPendings,
