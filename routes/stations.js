@@ -75,7 +75,9 @@ router.get('/pendings/', function(req, res, next) {
             return next(err);
         }
         res.json(stations);
-    });
+    }).sort({
+        createdAt: 1
+    });;
 });
 
 router.post('/', function(req, res, next) {

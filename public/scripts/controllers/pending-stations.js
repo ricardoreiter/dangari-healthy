@@ -22,7 +22,7 @@
         _getPendings();
 
         self.open = function(s) {
-            $uibModal.open({
+            var modalInstance = $uibModal.open({
                 templateUrl: 'views/station-suggestion.html',
                 controller: 'StationSuggestionCtrl',
                 controllerAs: 'ctrl',
@@ -32,6 +32,8 @@
                         return s;
                     }
                 }
+            }).closed.then(function() {
+                _getPendings();
             });
 
         };
