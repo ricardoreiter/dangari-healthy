@@ -16,6 +16,7 @@
                     function(response) {
                         if (response) {
                             vm.stations = response;
+                            calculateStars(vm.stations);
                         } else {
                             toastr.error('Ocorreu um erro ao obter as estações');
                         }
@@ -29,24 +30,32 @@
 
         vm.openStation = openStation;
 
-        calculateStars(vm.stations);
+
 
         function openStation(station) {
             $uibModal.open({
                 templateUrl: 'views/station.html',
                 controller: 'StationCtrl',
                 controllerAs: 'sc',
-                size: 'lg'
+                size: 'lg',
+                resolve: {
+                    station: function() {
+                        return station;
+                    }
+                }
             });
         }
 
-        function calculateStars(stations) {
-            for (var i = 0; i < stations.length; i++) {
-                stations[i].stars = getStars(stations[i].scoreAverage);
+        function calculateStars(st) {
+            console.log('passou');
+            console.log(st);
+            for (var i = 0; i < st.length; i++) {
+                st[i].stars = getStars(st[i].scoreAverage);
             }
         }
 
         function getStars(score) {
+            console.log('kak');
             var stars = [];
             for (var i = 0; i < 5; i++) {
                 if (i < score) {
