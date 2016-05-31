@@ -17,11 +17,11 @@
                         if (response) {
                             vm.stations = response;
                         } else {
-                            toastr.error('Ocorreu um erro ao realizar login');
+                            toastr.error('Ocorreu um erro ao obter as estações');
                         }
                     },
                     function(error) {
-                        toastr.error('Ocorreu um erro ao realizar login');
+                        toastr.error('Ocorreu um erro ao obter as estações');
                     }
                 );
         }
