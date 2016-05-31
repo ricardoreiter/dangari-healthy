@@ -9,7 +9,8 @@ var ReviewSchema = new mongoose.Schema({
   	scorePunctuality: Number,
   	user: {type: String, ref: 'User'},
   	comment: String
-
+}, {
+  timestamps: true
 });
 
 mongoose.model('Review', ReviewSchema);
