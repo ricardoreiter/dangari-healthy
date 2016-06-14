@@ -25,9 +25,17 @@ router.get('/:id/reviews', function(req, res, next) {
             _id: req.params.id
         }, 'reviews')
         .populate('reviews')
-        .exec(function(err, station) {
-            if (err) return next(err);
-            res.json(station);
+        .exec(function(err, stationWithoutUser) {
+            Station.populate(stationWithoutUser, {
+              path: 'reviews.user',
+              model: 'User',
+              select: 'name -_id'
+            },
+            function(err, station) {
+                if (err) return next(err);
+                res.json(station);
+            });
+            
         });
 });
 
