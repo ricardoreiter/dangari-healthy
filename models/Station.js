@@ -1,9 +1,9 @@
 var mongoose = require('mongoose');
 
 var StationSchema = new mongoose.Schema({
-    name: String,
-    photo: String,
-    location: String,
+  	name: String,
+    photo: Buffer,
+  	location: String,
     pending: Boolean,
     scoreAverage: Number,
     reviews: [{

@@ -4,12 +4,14 @@
 
     angular.module('dangari-healthy').controller('StationSuggestionCtrl', StationSuggestionCtrl);
 
-    function StationSuggestionCtrl($scope, NgMap, station, $uibModalInstance, StationSvc) {
+    function StationSuggestionCtrl($scope, NgMap, station, $uibModalInstance, StationSvc, Utils) {
         var self = this;
         self.new = station === null;
         self.station = station;
         self.remove = _removeStation;
         self.approve = _approve;
+        self.onLoadBufferImagem = onLoadBufferImagem;
+        self.urlPhoto;
 
         NgMap.getMap().then(function(map) {
             console.log(map.getCenter());
@@ -17,18 +19,22 @@
             console.log('shapes', map.shapes);
         });
 
-        self.add = function(station) {
-            var photos = [
-                'https://images.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.unimed.coop.br%2Fportal%2Fconteudo%2Fmaterias%2F1341590080539unimed.jpg&f=1',
-                'https://images.duckduckgo.com/iur/?f=1&image_host=http%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2F9%2F99%2FNational_University_Hospital%2C_Nov_06.JPG&u=https://upload.wikimedia.org/wikipedia/commons/9/99/National_University_Hospital%2C_Nov_06.JPG',
-                'https://images.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.ccm.pitt.edu%2Fsites%2Fdefault%2Ffiles%2Fimagecache%2Fhistory-thumbnail%2Fmagee_womens_hospital.jpg&f=1',
-                'https://images.duckduckgo.com/iu/?u=http%3A%2F%2F1.bp.blogspot.com%2F_OLc2TjnHOgQ%2FTOSisJ3ByUI%2FAAAAAAACE6k%2FFnUTpkzgnGA%2Fs1600%2FDOCTORS%2BHOSPITAL%2BColumbus%2BGeorgia%252C%2BDoctors%2BHospital%2Bat%2BColumbus%2BRegional%2BMedical%2BCenter%2BColumbus%2BGeorgia%2B%2B.JPG&f=1',
-                'https://images.duckduckgo.com/iu/?u=http%3A%2F%2Fblogs.rch.org.au%2Fnews%2Ffiles%2F2011%2F12%2FHospital.jpg&f=1'
-            ];
+        loadPhoto = function(){
+            if (!self.new){
+                if (station.photo){
+                    self.urlPhoto = "data:image/JPEG;base64," + Utils.base64ArrayBuffer(station.photo.data);
+                }else{
+                    self.urlPhoto = "http://localhost:3000/assets/semFoto.jpg";
+                }
+            }
+        };
+        loadPhoto();
 
+
+
+        self.add = function(station) {
             station.location = 'Rua Rio Branco, 797';
             station.scoreAverage = Math.floor(Math.random() * 5);
-            station.photo = photos[Math.floor(Math.random() * 4)];
             station.pending = true;
             StationSvc.create(station).then(
                 function(response) {
@@ -80,6 +86,10 @@
         }
 
         function onLoadBufferImagem(file) {
+            self.station.photo = getByteArrayFromFile(file);
+        }
+
+        function getByteArrayFromFile(file){
             var uintArray = new Uint8Array(file.target.result);
             var byteArray = [];
             uintArray.forEach(function(val) {
@@ -101,19 +111,16 @@
         }
 
 
+
+
         self.loadImage = function(file) {
             loadImage(file, self.onLoadUrlImagem, self.onLoadBufferImagem);
         };
 
-        self.onLoadUrlImagem = function(file) {
-            self.urlImagem = file.target.result;
-            $scope.$apply();
-        };
 
-        self.onLoadBufferImagem = function(file) {
-            self.station.image = {
-                bytes: onLoadBufferImagem(file)
-            };
+        self.onLoadUrlImagem = function(file) {
+            self.urlPhoto = file.target.result;
+            $scope.$apply();
         };
 
         self.close = _close;
