@@ -8,6 +8,10 @@ var ReviewSchema = new mongoose.Schema({
   	scoreStructure: Number,
   	scorePunctuality: Number,
   	user: {type: String, ref: 'User'},
+    complaints: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }],
   	comment: String
 }, {
   timestamps: true
