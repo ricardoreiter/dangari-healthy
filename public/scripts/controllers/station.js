@@ -1,5 +1,5 @@
 (function() {
-    angular.module('dangari-healthy').controller('StationCtrl', function($http, $scope, $uibModal, station, StationSvc) {
+    angular.module('dangari-healthy').controller('StationCtrl', function($http, $scope, $uibModal, station, StationSvc, Utils, ReviewSvc) {
         var self = this;
 
         self.newReview = {};
@@ -44,7 +44,7 @@
         }
 
         self.images = [{
-            url: station.photo
+            url: "data:image/JPEG;base64," + Utils.base64ArrayBuffer(station.photo.data)
         }]
 
         function _cleanReview() {
@@ -170,7 +170,16 @@
             });
 
             modalInstance.result.then(function() {
-                toastr.success('Comentário denunciado com sucesso!');
+                ReviewSvc.complaintReview(review._id)
+                    .then(
+                        function(response) {
+                            toastr.success('Comentário denunciado com sucesso!');
+                        },
+                        function(error) {
+                            console.error(error);
+                            toastr.error('Ocorreu um erro ao denunciar a avaliação!');
+                        }
+                    );
             }, function() {});
 
         }

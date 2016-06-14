@@ -18,9 +18,9 @@
         <tbody>
             <tr ng-repeat="report in ctrl.reports | orderBy :'-reportQuantity'">
                 <td>{{report.comment}}</td>
-                <td>{{report.user}}</td>
-                <td>{{report.station}}</td>
-                <td>{{report.reportQuantity}}</td>
+                <td>{{report.user.name}}</td>
+                <td>{{report.station.name}}</td>
+                <td>{{report.complaints.length}}</td>
                 <td>
                     <span ng-click="ctrl.deleteComment(report)" title="Apagar comentário" style="color: #D49090; font-size: 20px;"><i class="fa fa-eraser" aria-hidden="true"></i></i></span>
                     <span ng-click="ctrl.ignoreReport(report)" title="Ignorar denúncias" style="color: #B2D490; font-size: 20px;"><i class="fa fa-times" aria-hidden="true"></i></span>

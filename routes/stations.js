@@ -55,8 +55,7 @@ router.post('/:id/reviews', auth.ensureAuthorized, function(req, res, next) {
                 var review = new Review(req.body);
                 station.reviews.push(review);
                 review.user = user._id;
-                console.log('reiter');
-                console.log(review.user);
+                review.station = station;
                 review.save(function(err, review) {});
                 station.save(function(err, station) {
                     if (err) {
