@@ -6,7 +6,20 @@
 
     function Users($http, $q) {
         return {
-            getAll: _getAll
+            getAll: _getAll,
+            saveUser: _saveUser
+        }
+
+        function _saveUser(id, user) {
+            return $http.put('users/' + id, user).then({
+                function(response) {
+                    return response.data;
+                },
+                function(errResponse) {
+                    console.error('Erro ao salvar o usuário.');
+                    return $q.reject(errResponse);
+                }
+            });
         }
 
         function _getAll() {

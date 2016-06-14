@@ -57,10 +57,10 @@
                             <ul class="dropdown-menu dropdown-menu-right">
                                 <li><a class="dropdown-item" style="cursor: pointer;" data-ng-click="ic.openSuggestion()">Sugerir novo ponto de atendimento</a></li>
                                 <li><a class="dropdown-item" href="/#/profile-settings">Editar perfil</a></li>
-                                <li role="separator" class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="/#/pending-stations">Pontos de atendimento pendentes</a></li>
-                                <li><a class="dropdown-item" href="/#/reports">Denúncias de comentários abusivos</a></li>
-                                <li><a class="dropdown-item" href="/#/users">Usuários</a></li>
+                                <li ng-if="ic.user.isAdmin" role="separator" class="dropdown-divider"></li>
+                                <li ng-if="ic.user.isAdmin"><a class="dropdown-item" href="/#/pending-stations">Pontos de atendimento pendentes</a></li>
+                                <li ng-if="ic.user.isAdmin"><a class="dropdown-item" href="/#/reports">Denúncias de comentários abusivos</a></li>
+                                <li ng-if="ic.user.isAdmin"><a class="dropdown-item" href="/#/users">Usuários</a></li>
                                 <li role="separator" class="dropdown-divider"></li>
                                 <li><a class="dropdown-item" href="" ng-click="ic.logout()">Sair</a></li>
                             </ul>

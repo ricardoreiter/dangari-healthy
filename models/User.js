@@ -6,7 +6,7 @@ var UserSchema = new mongoose.Schema({
     token: String,
     email: String,
   	password: String,
-  	accountLevel: Number
+  	isAdmin: Boolean
 });
 
 mongoose.model('User', UserSchema);

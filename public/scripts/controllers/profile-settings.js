@@ -5,13 +5,31 @@
     angular.module('dangari-healthy')
         .controller('ProfileSettingsCtrl', ProfileSettingsCtrl);
 
-    function ProfileSettingsCtrl($scope, user) {
+    function ProfileSettingsCtrl($scope, LoginSvc, UserSvc, user) {
         var vm = this;
 
-        if (user) {
-            vm.profile = user;
-            vm.adminMode = true;
-        }
+        LoginSvc.getCurrentUser()
+            .then(
+                function(currentUser) {
+                    if (user) {
+                        if (!currentUser.data.isAdmin) {
+                            toastr.error("Você não possuí permissão para alterar este usuário");
+                        } else {
+                            vm.profile = user;
+                            vm.adminMode = true;
+                        }
+                    } else {
+                        vm.profile = currentUser.data;
+                    }
+                    vm.profile.password = "";
+                }, 
+                function(error) {
+                    console.error(error);
+                    toastr.error("Ocorreu um erro ao buscar o usuário ativo");
+                }
+            );
+
+        
 
         function onLoadBufferImagem(file){
             var uintArray = new Uint8Array(file.target.result);
@@ -34,6 +52,22 @@
             reader.readAsArrayBuffer(file);
         };
 
+        vm.saveUser = function() {
+            if (vm.profile.password && (vm.profile.password != vm.profile.confirmPassword)) {
+                toastr.error("As senhas digitadas não conferem");
+            } else {
+                UserSvc.saveUser(vm.profile._id, vm.profile)
+                    .then(
+                        function(response) {
+                            toastr.success("Usuário atualizado com sucesso");
+                        },
+                        function(error) {
+                            console.error(error);
+                            toastr.error("Ocorreu um erro ao atualizar usuário");
+                        }
+                    );
+            }
+        };
 
         vm.loadImage = function (file) {
             loadImage(file, vm.onLoadUrlImagem, vm.onLoadBufferImagem);

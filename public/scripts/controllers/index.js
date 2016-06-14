@@ -20,7 +20,7 @@
                     .then(
                         function(response) {
                             if (response) {
-                                self.user = response.data;
+                                vm.user = response.data;
                                 // toastr.success('Logado com sucesso!');
                             } else {
                                 toastr.error('Ocorreu um erro ao realizar login');

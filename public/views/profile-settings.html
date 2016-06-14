@@ -19,6 +19,10 @@
     <label for="confirmPassword"><b>Confirmar senha:</b></label>
     <br>
     <input type="password" class="form-control" placeholder="Confirmar senha" ng-model="vm.profile.confirmPassword">
-    <button class="btn btn-success">Atualizar Perfil</button>
+    <span ng-show="vm.adminMode">
+        <input type="checkbox" ng-model="vm.profile.isAdmin"> <b>Administrador</b>
+        <br>
+    </span>
+    <button class="btn btn-success" ng-click="vm.saveUser()">Atualizar Perfil</button>
     <button ng-show="vm.adminMode" class="btn btn-danger">Banir usuário</button>
 </div>
