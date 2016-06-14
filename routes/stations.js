@@ -1,9 +1,11 @@
 var express = require('express');
 var router = express.Router();
 
+var auth = require('../utils/authentication');
 var mongoose = require('mongoose');
 var Station = mongoose.model('Station');
 var Review = mongoose.model('Review');
+var User = mongoose.model('User');
 
 // TODO ESSA PORRA DE ID ZOA OUTRAS URLS
 // router.get('/:id', function(req, res, next) {
@@ -29,29 +31,34 @@ router.get('/:id/reviews', function(req, res, next) {
         });
 });
 
-router.post('/:id/reviews', function(req, res, next) {
-    Review.findOne({
-        _id: req.body._id
-    }, function(err, review) {
+router.post('/:id/reviews', auth.ensureAuthorized, function(req, res, next) {
+    Station.findOne({
+        _id: req.params.id
+    }, function(err, station) {
         if (err) {
             return next(err);
         }
-        Station.findOne({
-            _id: req.params.id
-        }, function(err, station) {
+        User.findOne({
+            token: req.token
+        }, function(err, user) {
             if (err) {
-                return next(err);
-            }
-            station.reviews.push(review);
-            station.save(function(err, station) {
-                if (err) {
-                    return next(err);
-                }
-                res.json({
-                    message: 'Avaliação adicionada com sucesso!'
+                console.log('Não encontrou o usuário');
+            } else {
+                var review = new Review(req.body);
+                station.reviews.push(review);
+                review.user = user._id;
+                console.log('reiter');
+                console.log(review.user);
+                review.save(function(err, review) {});
+                station.save(function(err, station) {
+                    if (err) {
+                        return next(err);
+                    }
+                    res.json({
+                        message: 'Avaliação adicionada com sucesso!'
+                    });
                 });
-            });
-
+            }
         });
     });
 });

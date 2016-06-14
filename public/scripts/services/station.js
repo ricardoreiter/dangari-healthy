@@ -4,14 +4,27 @@
     angular.module('dangari-healthy')
         .factory('StationSvc', Station);
 
-    function Station($http) {
+    function Station($http, $q) {
 
         return {
             getPendings: _getPendings,
             getAll: _getAll,
             create: _create,
             remove: _remove,
-            update: _update
+            update: _update,
+            getReviews: _getReviews,
+            createReview: _createReview
+        }
+
+        function _getReviews(id) {
+            return $http.get('stations/' + id + '/reviews').then(
+                function(response) {
+                    return response.data;
+                },
+                function(err) {
+                    return $q.reject(err);
+                }
+            )
         }
 
         function _update(id, station) {
@@ -56,6 +69,18 @@
                 },
                 function(errResponse) {
                     console.error('Erro ao criar estação.');
+                    return $q.reject(errResponse);
+                }
+            );
+        }
+
+        function _createReview(id, review) {
+            return $http.post('stations/' + id + '/reviews', review).then(
+                function(response) {
+                    return response.data;
+                },
+                function(errResponse) {
+                    console.error('Erro ao adicionar avaliação.');
                     return $q.reject(errResponse);
                 }
             );

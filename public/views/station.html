@@ -2,39 +2,39 @@
 	<div class="row">
 		<div class="card panel-station">
 			<div class="panel-heading">
-				<div class="row"> 
+				<div class="row">
 					<h4>
 						{{sc.station.name}}
 					</h4>
 					<ul rn-carousel rn-carousel-index="carouselImages" rn-carousel-controls class="carousel-images" style="height: 500px">
-                        <li ng-repeat="image in sc.images">
-                            <img src="{{image.url}}"/>
-                        </li>
-                    </ul>
-                    <div rn-carousel-indicators ng-if="sc.images.length > 1" slides="sc.images" rn-carousel-index="carouselImages"></div>
+						<li ng-repeat="image in sc.images">
+							<img src="{{image.url}}" />
+						</li>
+					</ul>
+					<div rn-carousel-indicators ng-if="sc.images.length > 1" slides="sc.images" rn-carousel-index="carouselImages"></div>
 				</div>
 			</div>
 			<div class="panel-body">
 				<div class="row">
-            		<div class="row">
-            			<div class="station-map">
-            				<ng-map class="card-img-top" center="[40.74, -74.18]">
-            					<marker position="40.74,-74.18" title="UNIMED"></marker>
-            				</ng-map>
-            			</div>
-            		</div>
-            		<div class="row">
-            			Avaliação geral
-            			<div class="score-star-general">
-            				<i ng-repeat="star in sc.station.stars track by $index" class="fa {{star}}" aria-hidden="true"></i>
-            			</div>
-            		</div>
-                </div>
-                <div class="row">
+					<div class="row">
+						<div class="station-map">
+							<ng-map class="card-img-top img-responsive" center="[40.74, -74.18]">
+								<marker position="40.74,-74.18" title="UNIMED"></marker>
+							</ng-map>
+						</div>
+					</div>
+					<div class="row">
+						Avaliação geral
+						<div class="score-star-general">
+							<i ng-repeat="star in sc.station.stars track by $index" class="fa {{star}}" aria-hidden="true"></i>
+						</div>
+					</div>
+				</div>
+				<div id="newReview" class="row">
 					<div class="subtitle">
-						Nova avaliação 
+						Nova avaliação
 						<button class="btn btn-invisible" type="button" data-toggle="collapse" data-target="#collapseNewReview" aria-expanded="false" aria-controls="collapseNewReview">
-					    	<i id="newReviewIcon" class="fa fa-angle-down" aria-hidden="true"></i>
+							<i id="newReviewIcon" class="fa fa-angle-down" aria-hidden="true"></i>
 						</button>
 					</div>
 				</div>
@@ -67,7 +67,7 @@
 							</div>
 						</div>
 						<div class="row footer">
-							<button type="button" class="btn btn-primary">Salvar</button>
+							<button type="button" class="btn btn-primary" ng-click="sc.addReview(sc.newReview)">Salvar</button>
 						</div>
 					</div>
 					<div class="review row" ng-repeat="review in sc.station.reviews | filter: sc.filterStationReviews">
@@ -100,7 +100,7 @@
 									{{review.comment}}
 								</div>
 							</div>
-								
+
 						</div>
 					</div>
 				</div>

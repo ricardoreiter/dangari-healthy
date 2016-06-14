@@ -9,6 +9,7 @@
         var vm = this;
 
         vm.stations = [];
+        vm.openStation = openStation;
 
         function _getAll() {
             StationSvc.getAll()
@@ -27,10 +28,6 @@
                 );
         }
         _getAll();
-
-        vm.openStation = openStation;
-
-
 
         function openStation(station) {
             $uibModal.open({

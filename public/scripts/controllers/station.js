@@ -1,46 +1,64 @@
 (function() {
-
-    angular.module('dangari-healthy').controller('StationCtrl', function($http, $scope, $uibModal) {
+    angular.module('dangari-healthy').controller('StationCtrl', function($http, $scope, $uibModal, station, StationSvc) {
         var self = this;
 
-        self.station = {
-            name: 'UNIMED - Vila Nova',
-            scoreAverage: 3.5,
-            reviews: [{
-                scoreGeneral: 0,
-                scoreAttendence: 1,
-                scoreReception: 2,
-                scoreStructure: 2,
-                scorePunctuality: 0,
-                user: 'Gabriel Biz',
-                comment: 'Uma bostaaaa, odieiii, uiii'
-            }, {
-                scoreGeneral: 5,
-                scoreAttendence: 5,
-                scoreReception: 5,
-                scoreStructure: 5,
-                scorePunctuality: 5,
-                user: 'Seu zeca',
-                comment: 'Rapaz que atendimento bão sô se é loco o atendente me atendeu bem ta ligado pq o baguio é doido mermo bixão o.O'
-            }]
-        };
+        self.newReview = {};
+        self.station = station;
+        self.station.reviews = [];
+        self.addReview = _addReview;
 
+        function _getReviews() {
+            StationSvc.getReviews(station._id)
+                .then(
+                    function(response) {
+                        if (response) {
+                            self.station.reviews = response.reviews;
+                            loadStation();
+                        } else {
+                            toastr.error('Ocorreu um erro ao obter avaliações da estação');
+                        }
+                    },
+                    function(error) {
+                        toastr.error('Ocorreu um erro ao obter avaliações da estação');
+                    }
+                );
+        }
+        _getReviews();
+
+        function _addReview(review) {
+            StationSvc.createReview(station._id, review).then(
+                function(response) {
+                    if (response) {
+                        _cleanReview()
+                        _getReviews();
+                        $('#newReview').hide();
+                        toastr.success('Avaliação criada com sucesso!');
+                    } else {
+                        toastr.error('Ocorreu um erro ao criar avaliação.');
+                    }
+                },
+                function(error) {
+                    toastr.error('Ocorreu um erro ao criar avaliação.');
+                }
+            );
+        }
 
         self.images = [{
-            url: 'http://localhost:3000/assets/modelo-caso-de-uso-alteracoes.png'
-        }, {
-            url: 'http://localhost:3000/assets/modelo-caso-de-uso-cadastro.png'
-        }];
+            url: station.photo
+        }]
 
-        self.newReview = {
-            user: '',
-            comment: '',
-            scoreGeneral: 0,
-            scoreAttendence: 0,
-            scoreReception: 0,
-            scoreStructure: 0,
-            scorePunctuality: 0
-        };
+        function _cleanReview() {
+            self.newReview = {
+                user: '',
+                comment: '',
+                scoreGeneral: 0,
+                scoreAttendence: 0,
+                scoreReception: 0,
+                scoreStructure: 0,
+                scorePunctuality: 0
+            };
+        }
+        _cleanReview();
 
         self.scoreStruct = [
             'Geral', 'Atendimento', 'Recepção', 'Estrutura física', 'Pontualidade'
