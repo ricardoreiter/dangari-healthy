@@ -69,7 +69,10 @@
                 controllerAs: 'ctrl',
                 size: 'lg',
                 resolve: {
-                    station: function () {
+                    user: function() {
+                        return vm.user;
+                    },
+                    station: function() {
                         return null;
                     }
                 }

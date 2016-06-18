@@ -4,7 +4,7 @@
 
     angular.module('dangari-healthy').controller('StationSuggestionCtrl', StationSuggestionCtrl);
 
-    function StationSuggestionCtrl($scope, NgMap, station, $uibModalInstance, StationSvc, Utils) {
+    function StationSuggestionCtrl($scope, NgMap, station, user, $uibModalInstance, StationSvc, Utils) {
         var self = this;
         self.new = station === null;
         self.station = station;
@@ -34,7 +34,8 @@
 
         self.add = function(station) {
             station.location = 'Rua Rio Branco, 797';
-            station.pending = true;
+            station.pending = !user.isAdmin;
+            console.log('aaa ' + station.pending);
             StationSvc.create(station).then(
                 function(response) {
                     if (response) {

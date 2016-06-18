@@ -28,6 +28,9 @@
                 controllerAs: 'ctrl',
                 size: 'lg',
                 resolve: {
+                    user: function() {
+                        return null;
+                    },
                     station: function() {
                         return s;
                     }

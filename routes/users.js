@@ -47,7 +47,7 @@ router.get('/me/me', auth.ensureAuthorized, function(req, res, next) {
 
 router.post('/', function(req, res, next) {
     var user = new User(req.body);
-    user.isAdmin = true;
+    user.isAdmin = false;
 
     if (!user.login) {
         res.status(500).send('Empty user login');
