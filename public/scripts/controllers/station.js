@@ -16,6 +16,11 @@
                             if (response.hasComment) {
                                 _hideNewReview();
                             }
+                            self.station.scoreAverage = _reviewsAvg(self.station.reviews);
+                            StationSvc.update(self.station._id, self.station);
+                            console.log(self.station.scoreAverage);
+                            calculateStars(self.station);
+                            console.log(self.station.stars);
                             loadStation();
                         } else {
                             toastr.error('Ocorreu um erro ao obter avaliações da estação');
@@ -27,6 +32,16 @@
                 );
         }
         _getReviews();
+
+        function _reviewsAvg(reviews) {
+            var score = 0;
+            var size = reviews.length;
+            for (var i = 0; i < size; i++) {
+                var r = reviews[i];
+                score += (r.scoreGeneral + r.scoreAttendence + r.scoreReception + r.scoreStructure + r.scorePunctuality) / 5;
+            }
+            return score / size;
+        }
 
         function _hideNewReview() {
             $('#collapseNewReview').hide();
@@ -51,8 +66,12 @@
             );
         }
 
+        var urlPhoto = "http://localhost:3000/assets/semFoto.jpg";
+        if (station.photo) {
+            urlPhoto = "data:image/JPEG;base64," + Utils.base64ArrayBuffer(station.photo.data)
+        }
         self.images = [{
-            url: "data:image/JPEG;base64," + Utils.base64ArrayBuffer(station.photo.data)
+            url: urlPhoto
         }]
 
         function _cleanReview() {
@@ -112,7 +131,7 @@
                     self.newReview.scoreStructure = score;
                     break;
                 case 4:
-                    self.newReview.scoreGeneral = score;
+                    self.newReview.scorePunctuality = score;
                     break;
             }
             for (var i = score; i > 0; i--) {

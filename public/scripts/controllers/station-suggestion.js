@@ -19,11 +19,11 @@
             console.log('shapes', map.shapes);
         });
 
-        loadPhoto = function(){
-            if (!self.new){
-                if (station.photo){
+        loadPhoto = function() {
+            if (!self.new) {
+                if (station.photo) {
                     self.urlPhoto = "data:image/JPEG;base64," + Utils.base64ArrayBuffer(station.photo.data);
-                }else{
+                } else {
                     self.urlPhoto = "http://localhost:3000/assets/semFoto.jpg";
                 }
             }
@@ -34,7 +34,6 @@
 
         self.add = function(station) {
             station.location = 'Rua Rio Branco, 797';
-            station.scoreAverage = Math.floor(Math.random() * 5);
             station.pending = true;
             StationSvc.create(station).then(
                 function(response) {
@@ -89,7 +88,7 @@
             self.station.photo = getByteArrayFromFile(file);
         }
 
-        function getByteArrayFromFile(file){
+        function getByteArrayFromFile(file) {
             var uintArray = new Uint8Array(file.target.result);
             var byteArray = [];
             uintArray.forEach(function(val) {
