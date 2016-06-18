@@ -12,7 +12,10 @@
                 .then(
                     function(response) {
                         if (response) {
-                            self.station.reviews = response.reviews;
+                            self.station.reviews = response.station.reviews;
+                            if (response.hasComment) {
+                                _hideNewReview();
+                            }
                             loadStation();
                         } else {
                             toastr.error('Ocorreu um erro ao obter avaliações da estação');
@@ -25,13 +28,18 @@
         }
         _getReviews();
 
+        function _hideNewReview() {
+            $('#collapseNewReview').hide();
+            $('#newReviewBtn').hide();
+        }
+
         function _addReview(review) {
             StationSvc.createReview(station._id, review).then(
                 function(response) {
                     if (response) {
-                        _cleanReview()
+                        _cleanReview();
                         _getReviews();
-                        $('#newReview').hide();
+                        _hideNewReview();
                         toastr.success('Avaliação criada com sucesso!');
                     } else {
                         toastr.error('Ocorreu um erro ao criar avaliação.');

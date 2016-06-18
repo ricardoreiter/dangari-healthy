@@ -19,7 +19,7 @@ var User = mongoose.model('User');
 //     });
 // });
 
-router.get('/:id/reviews', function(req, res, next) {
+router.get('/:id/reviews', auth.ensureAuthorized, function(req, res, next) {
     Station
         .findOne({
             _id: req.params.id
@@ -27,15 +27,38 @@ router.get('/:id/reviews', function(req, res, next) {
         .populate('reviews')
         .exec(function(err, stationWithoutUser) {
             Station.populate(stationWithoutUser, {
-              path: 'reviews.user',
-              model: 'User',
-              select: 'name -_id'
-            },
-            function(err, station) {
-                if (err) return next(err);
-                res.json(station);
-            });
-            
+                    path: 'reviews.user',
+                    model: 'User',
+                    select: 'name -_id'
+                },
+                function(err, station) {
+                    if (err) return next(err);
+                    User.findOne({
+                        token: req.token
+                    }, function(err, user) {
+                        if (err) {
+                            res.json({
+                                station: station,
+                                hasComment: false
+                            });
+                        } else {
+                            Review.find({
+                                    user: user._id,
+                                    station: req.params.id
+                                })
+                                .exec(function(err, reviews) {
+                                    var result = {
+                                        station: station,
+                                        hasComment: reviews.length > 0
+                                    };
+                                    if (err) {
+                                        result.hasComment = false;
+                                    }
+                                    res.json(result);
+                                });
+                        }
+                    });
+                });
         });
 });
 

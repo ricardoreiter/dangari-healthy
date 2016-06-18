@@ -7,18 +7,20 @@ var Review = mongoose.model('Review');
 var User = mongoose.model('User');
 
 router.put('/:id/complaint', auth.ensureAuthorized, function(req, res, next) {
-	Review.findOne({_id : req.params.id}, function(err, review) {
-		if (err) {
-			return next(err);
-		}
-		User.findOne({
+    Review.findOne({
+        _id: req.params.id
+    }, function(err, review) {
+        if (err) {
+            return next(err);
+        }
+        User.findOne({
             token: req.token
         }, function(err, user) {
             if (err) {
-				return next(err);
-			}
-        	review.complaints.push(user);
-        	review.save(function(err, review) {
+                return next(err);
+            }
+            review.complaints.push(user);
+            review.save(function(err, review) {
                 if (err) {
                     return next(err);
                 }
@@ -27,11 +29,13 @@ router.put('/:id/complaint', auth.ensureAuthorized, function(req, res, next) {
                 });
             });
         });
-	});
+    });
 });
 
 router.delete('/:id/complaint', auth.ensureAuthorized, function(req, res, next) {
-    Review.findOne({_id : req.params.id}, function(err, review) {
+    Review.findOne({
+        _id: req.params.id
+    }, function(err, review) {
         if (err) {
             return next(err);
         }
@@ -63,36 +67,39 @@ router.get('/', function(req, res, next) {
     var withComplaint = req.query.withComplaint;
 
     if (!!withComplaint) {
-        console.log("wiht");
         Review.find({
-                    complaints : { $gt: [] }
-                })
-                .populate('user', 'name')
-                .populate('station', 'name')
-                .exec(function(err, reviews) {
-                    if (err) {
-                        return next(err);
-                    }
-                    res.json(reviews);
-                });
+                complaints: {
+                    $gt: []
+                }
+            })
+            .populate('user', 'name')
+            .populate('station', 'name')
+            .exec(function(err, reviews) {
+                if (err) {
+                    return next(err);
+                }
+                res.json(reviews);
+            });
     } else {
-    	Review.find(function(err, reviews) {
-    		if (err) {
-    			return next(err);
-    		}
-    		res.json(reviews);
-    	});
+        Review.find(function(err, reviews) {
+            if (err) {
+                return next(err);
+            }
+            res.json(reviews);
+        });
     }
 });
 
 router.post('/', function(req, res, next) {
-  var review = new Review(req.body);
+    var review = new Review(req.body);
 
-  review.save(function(err, review){
-    if(err){ return next(err); }
+    review.save(function(err, review) {
+        if (err) {
+            return next(err);
+        }
 
-    res.json(review);
-  });
+        res.json(review);
+    });
 });
 
 module.exports = router;
