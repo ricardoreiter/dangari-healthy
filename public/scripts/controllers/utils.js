@@ -42,5 +42,34 @@ angular.module("dangari-healthy")
 
             return base64
         };
+
+        this.centralizeMap = function(map, lat, lng){
+            var position = new google.maps.LatLng(lat, lng);
+            map.panTo(position); // centraliza o mapa na nova posição
+        };
+
+        this.setMarker = function(map, lat, lng){
+            var position = new google.maps.LatLng(lat, lng);
+            if (self.marker){
+                self.marker.setMap(null); // remove o marcador anterior
+            }
+            self.marker = new google.maps.Marker();
+            self.marker.setPosition(position);
+            self.marker.setMap(map); // adiciona o novo marcador no mapa
+        };
+
+        this.getLocationStr = function(lat, lng){
+            var geocoder = new google.maps.Geocoder();
+            var latlng = new google.maps.LatLng(lat, lng);
+            geocoder.geocode({ 'latLng': latlng }, function (results, status) {
+                self.station.location = "Localização desconhecida";
+                if (status == google.maps.GeocoderStatus.OK) {
+                    if (results[0]) {
+                        self.station.location = results[0].formatted_address;
+                    }
+                }
+            });
+        };
+
     }]);
 

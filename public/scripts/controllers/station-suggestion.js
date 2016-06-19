@@ -17,42 +17,32 @@
 
         NgMap.getMap("map").then(function(map) {
             self.map = map;
-            $geolocation.getCurrentPosition({
-                timeout: 60000
-            }).then(function(position) {
-                google.maps.event.addListener(map, 'click', function(event) {
-                    self.station.locationLng = event.latLng.lng();
-                    self.station.locationLat = event.latLng.lat();
-                    getLocationStr(self.station.locationLat, self.station.locationLng);
-                    var position = new google.maps.LatLng(self.station.locationLat, self.station.locationLng);
-                    map.panTo(position); // centraliza o mapa na nova posição
-                    if (self.marker){
-                        self.marker.setMap(null); // remove o marcador anterior
-                    }
-                    self.marker = new google.maps.Marker();
-                    self.marker.setPosition(position);
-                    self.marker.setMap(map); // adiciona o novo marcador no mapa
+            if (self.new){
+                $geolocation.getCurrentPosition({
+                    timeout: 60000
+                }).then(function(position) {
+                    google.maps.event.addListener(map, 'click', function(event) {
+                        self.station.locationLng = event.latLng.lng();
+                        self.station.locationLat = event.latLng.lat();
+                        Utils.getLocationStr(self.station.locationLat, self.station.locationLng);
+                        Utils.centralizeMap(map, self.station.locationLat, self.station.locationLng);
+                        Utils.setMarker(map, self.station.locationLat, self.station.locationLng);
+
+                    });
+                    self.station.locationLat = position.coords.latitude;
+                    self.station.locationLng = position.coords.longitude;
+                    Utils.setMarker(map, self.station.locationLat, self.station.locationLng);
                 });
-                self.station.locationLat = position.coords.latitude;
-                self.station.locationLng = position.coords.longitude;
-            });
+            }else if (self.station.locationLat && self.station.locationLng){
+                Utils.centralizeMap(map, self.station.locationLat, self.station.locationLng);
+                Utils.setMarker(map, self.station.locationLat, self.station.locationLng);
+            }
         }, function(error){
             console.log('error getting map');
         });
-        
-        function getLocationStr(lat, lng){
-            var geocoder = new google.maps.Geocoder();
-            var latlng = new google.maps.LatLng(lat, lng);
-            geocoder.geocode({ 'latLng': latlng }, function (results, status) {
-                self.station.location = "Localização desconhecida";
-                if (status == google.maps.GeocoderStatus.OK) {
-                    if (results[0]) {
-                        self.station.location = results[0].formatted_address;
-                    }
-                }
-            });
-        }
 
+        
+        // Gambiarra para resolver o problema de não carregar o mapa na segunda vez que acessa
         self.render = false;
         $timeout(function () {
             self.render = true;

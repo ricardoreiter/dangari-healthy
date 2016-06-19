@@ -1,11 +1,21 @@
   (function() {
-    angular.module('dangari-healthy').controller('StationCtrl', function($http, $scope, $uibModal, station, StationSvc, Utils, ReviewSvc) {
+    angular.module('dangari-healthy').controller('StationCtrl', function($http, $scope, $uibModal, station, StationSvc, Utils, ReviewSvc, NgMap, $timeout) {
         var self = this;
 
         self.newReview = {};
         self.station = station;
         self.station.reviews = [];
         self.addReview = _addReview;
+
+        NgMap.getMap("map").then(function(map) {
+            self.map = map;
+            if (self.station.locationLat && self.station.locationLng){
+                Utils.centralizeMap(map, self.station.locationLat, self.station.locationLng);
+                Utils.setMarker(map, self.station.locationLat, self.station.locationLng);
+            }
+        }, function(error){
+            console.log('error getting map');
+        });
 
         function _getReviews() {
             StationSvc.getReviews(station._id)
@@ -71,6 +81,12 @@
         self.images = [{
             url: urlPhoto
         }]
+
+        // Gambiarra para resolver o problema de não carregar o mapa na segunda vez que acessa
+        self.render = false;
+        $timeout(function () {
+            self.render = true;
+        }, 500);
 
         function _cleanReview() {
             self.newReview = {

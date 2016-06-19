@@ -17,10 +17,8 @@
 			<div class="panel-body">
 				<div class="row">
 					<div class="row">
-						<div class="station-map">
-							<ng-map class="card-img-top img-responsive" center="[40.74, -74.18]">
-								<marker position="40.74,-74.18" title="UNIMED"></marker>
-							</ng-map>
+						<div ng-if="sc.render" class="station-map">
+							<ng-map id="map" class="card-img-top img-responsive" center="[{{sc.station.locationLat}}, {{sc.station.locationLng}}]" ></ng-map>
 						</div>
 					</div>
 					<div class="row">
