@@ -5,8 +5,8 @@
         .factory('StationSvc', Station);
 
     function Station($http, $q) {
-        var field = '';
-        var order = '';
+        var field = 'name';
+        var order = 'name';
         var callback = undefined;
         var searchValue = '';
         return {
@@ -65,8 +65,6 @@
         }
 
         function _getAll() {
-            console.log('feliz');
-            console.log(field);
             var url = '/stations';
             if (field) {
                 url += '?' + field + '=' + searchValue;
@@ -79,7 +77,6 @@
                 }
                 url += 'o=' + order;
             }
-            console.log(url);
             return $http.get(url).then(
                 function(response) {
                     return response.data;

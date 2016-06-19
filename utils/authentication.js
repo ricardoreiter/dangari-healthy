@@ -3,7 +3,6 @@ module.exports = {
         var bearerToken;
         var bearerHeader = req.headers["authorization"];
         if (typeof bearerHeader !== 'undefined') {
-					console.log(bearerHeader);
             var bearer = bearerHeader.split(" ");
             bearerToken = bearer[0];
             req.token = bearerToken;

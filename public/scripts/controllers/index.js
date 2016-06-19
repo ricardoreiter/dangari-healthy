@@ -14,8 +14,6 @@
         vm.searchValue = '';
         vm.field = 'name';
         vm.order = 'name';
-        console.log('tapete');
-
         login();
 
         function _search() {

@@ -25,22 +25,13 @@
         }
 
         function _getAll() {
-            // StationSvc.getAll(vm.field, vm.searchValue, vm.order)
             StationSvc.getAll()
                 .then(
                     function(response) {
                         if (response) {
-                            // console.log('foifoifofio' + vm.field + vm.searchValue + vm.order);
-                            // vm.stations.splice(0, vm.stations.length + 1);
-                            // for (var i = 0; i < response.length; i++) {
-                            //     vm.stations.push(response[i])
-                            // }
-                            // $scope.$apply(function() {
-                            // });
                             vm.stations = response;
                             calculateStars(vm.stations);
                             loadPhoto(vm.stations);
-                            console.log(vm.stations);
                         } else {
                             toastr.error('Ocorreu um erro ao obter as estações');
                         }

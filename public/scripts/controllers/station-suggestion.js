@@ -62,7 +62,6 @@
         self.add = function(station) {
             station.location = 'Rua Rio Branco, 797';
             station.pending = !user.isAdmin;
-            console.log('aaa ' + station.pending);
             StationSvc.create(station).then(
                 function(response) {
                     if (response) {
