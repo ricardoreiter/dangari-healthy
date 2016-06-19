@@ -24,7 +24,7 @@
                     google.maps.event.addListener(map, 'click', function(event) {
                         self.station.locationLng = event.latLng.lng();
                         self.station.locationLat = event.latLng.lat();
-                        Utils.getLocationStr(self.station.locationLat, self.station.locationLng);
+                        getLocationStr(self.station.locationLat, self.station.locationLng);
                         Utils.centralizeMap(map, self.station.locationLat, self.station.locationLng);
                         Utils.setMarker(map, self.station.locationLat, self.station.locationLng);
 
