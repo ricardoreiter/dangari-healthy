@@ -11,8 +11,8 @@
         <label for="map"><b>Conhece a localização? Selecione no mapa abaixo:</b></label>
         <br>
         <div class="form-group">
-            <div>
-                <ng-map id="map" class="card-img-top imagem" center="[40.74, -74.18]"></ng-map>
+            <div ng-if="ctrl.render">
+                <ng-map id="map" class="card-img-top imagem" center="[{{ctrl.latitude}}, {{ctrl.longitude}}]" ></ng-map>
             </div>
         </div>
         <br>

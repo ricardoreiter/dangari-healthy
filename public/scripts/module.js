@@ -8,7 +8,8 @@
             'angular-loading-bar',
             'angular-carousel',
             'ngMap',
-            'ui.bootstrap'
+            'ui.bootstrap',
+            'ngGeolocation'
         ]);
 
 }());

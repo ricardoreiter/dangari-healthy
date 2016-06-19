@@ -4,7 +4,7 @@
 
     angular.module('dangari-healthy').controller('StationSuggestionCtrl', StationSuggestionCtrl);
 
-    function StationSuggestionCtrl($scope, NgMap, station, user, $uibModalInstance, StationSvc, Utils) {
+    function StationSuggestionCtrl($scope, NgMap, station, user, $uibModalInstance, StationSvc, Utils, $geolocation, $timeout) {
         var self = this;
         self.new = station === null;
         self.station = station;
@@ -12,12 +12,39 @@
         self.approve = _approve;
         self.onLoadBufferImagem = onLoadBufferImagem;
         self.urlPhoto;
+        self.map = null;
+        self.latitude = null;
+        self.longitude = null;
+        self.marker = null;
 
-        NgMap.getMap().then(function(map) {
-            console.log(map.getCenter());
-            console.log('markers', map.markers);
-            console.log('shapes', map.shapes);
+        NgMap.getMap("map").then(function(map) {
+            self.map = map;
+            $geolocation.getCurrentPosition({
+                timeout: 60000
+            }).then(function(position) {
+                google.maps.event.addListener(map, 'click', function(event) {
+                    self.latitude = event.latLng.lat();
+                    self.longitude = event.latLng.lng();
+                    var position = new google.maps.LatLng(self.latitude, self.longitude);
+                    map.panTo(position);
+                    if (self.marker){
+                        self.marker.setMap(null);
+                    }
+                    self.marker = new google.maps.Marker();
+                    self.marker.setPosition(position);
+                    self.marker.setMap(map);
+                });
+                self.latitude = position.coords.latitude;
+                self.longitude = position.coords.longitude;
+            });
+        }, function(error){
+            console.log('error getting map');
         });
+
+        self.render = false;
+        $timeout(function () {
+            self.render = true;
+        }, 500);
 
         loadPhoto = function() {
             if (!self.new) {
