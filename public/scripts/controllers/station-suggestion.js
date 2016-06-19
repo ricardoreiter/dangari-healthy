@@ -23,7 +23,7 @@
                 google.maps.event.addListener(map, 'click', function(event) {
                     self.station.locationLng = event.latLng.lng();
                     self.station.locationLat = event.latLng.lat();
-                    self.station.location = getLocationStr(self.station.locationLat, self.station.locationLng);
+                    getLocationStr(self.station.locationLat, self.station.locationLng);
                     var position = new google.maps.LatLng(self.station.locationLat, self.station.locationLng);
                     map.panTo(position); // centraliza o mapa na nova posição
                     if (self.marker){
@@ -44,12 +44,12 @@
             var geocoder = new google.maps.Geocoder();
             var latlng = new google.maps.LatLng(lat, lng);
             geocoder.geocode({ 'latLng': latlng }, function (results, status) {
+                self.station.location = "Localização desconhecida";
                 if (status == google.maps.GeocoderStatus.OK) {
-                    if (results[1]) {
-                        return results[1].formatted_address;
-                    } 
-                } 
-                return "Localização desconhecida";
+                    if (results[0]) {
+                        self.station.location = results[0].formatted_address;
+                    }
+                }
             });
         }
 
@@ -72,7 +72,6 @@
 
 
         self.add = function(station) {
-            station.location = 'Rua Rio Branco, 797';
             station.pending = !user.isAdmin;
             StationSvc.create(station).then(
                 function(response) {
@@ -87,7 +86,7 @@
                     toastr.error('Ocorreu um erro ao enviar a sugestão.');
                 }
             );
-        }
+        };
 
         function _approve(station) {
             station.pending = false;
