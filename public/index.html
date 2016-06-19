@@ -13,15 +13,15 @@
     <link rel="stylesheet" href="/styles/login.css">
     <link rel="stylesheet" href="/styles/station.css">
     <link rel="stylesheet" href="/styles/profile-settings.css">
-    <link rel="stylesheet" href="/styles/station-suggestion.css"/>
-    <link rel="stylesheet" href="/styles/pending-suggestions.css"/>
-    <link rel="stylesheet" href="/styles/users.css"/>
+    <link rel="stylesheet" href="/styles/station-suggestion.css" />
+    <link rel="stylesheet" href="/styles/pending-suggestions.css" />
+    <link rel="stylesheet" href="/styles/users.css" />
     <link rel="stylesheet" href="/styles/reports.css">
 </head>
 
 <body>
     <!--Begin Header-->
-    <nav class="navbar navbar-default navbar-fixed-top" ng-controller="IndexCtrl as ic">
+    <nav class="navbar navbar-default navbar-fixed-top" ng-controller="IndexCtrl as vm">
         <div class="container-fluid">
             <div class="navbar-btn">
                 <div class="row">
@@ -30,21 +30,21 @@
                     <div class="col-xs-10 col-sm-10 col-md-10">
                         <div class="input-group">
                             <a class="input-group-addon" id="basic-addon1" href="#/"><i class="fa fa-hospital-o" aria-hidden="true"></i></a>
-                            <input type="text" class="form-control" placeholder="Encontrar instituição" aria-describedby="basic-addon1">
+                            <input ng-model="vm.searchValue" ng-keydown="$event.which === 13 && vm.search()" type="text" class="form-control" placeholder="Encontrar instituição" aria-describedby="basic-addon1">
                             <div class="input-group-btn">
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bars" aria-hidden="true"></i> <span class="caret"></span></button>
                                 <ul class="dropdown-menu dropdown-menu-right">
                                     <h6 class="dropdown-header">Filtros</h6>
                                     <li>&nbsp;
-                                        <input type="checkbox" name="filter" vale="name">&nbsp;Nome</li>
+                                        <input type="radio" name="filter" ng-model="vm.field" value="name">&nbsp;Nome</li>
                                     <li>&nbsp;
-                                        <input type="checkbox" name="filter" vale="place">&nbsp;Endereço</li>
+                                        <input type="radio" name="filter" ng-model="vm.field" value="place">&nbsp;Endereço</li>
                                     <li role="separator" class="dropdown-divider"></li>
                                     <h6 class="dropdown-header">Ordenação</h6>
                                     <li>&nbsp;
-                                        <input type="checkbox" name="filter" vale="name">&nbsp;Ordem alfabética</li>
+                                        <input type="radio" name="order" ng-model="vm.order" value="name">&nbsp;Ordem alfabética</li>
                                     <li>&nbsp;
-                                        <input type="checkbox" name="filter" vale="name">&nbsp;Melhores avaliadas&nbsp;</li>
+                                        <input type="radio" name="order" ng-model="vm.order" valUe="average">&nbsp;Melhores avaliadas&nbsp;</li>
                                 </ul>
                             </div>
                         </div>
@@ -55,15 +55,15 @@
                                 <i class="fa fa-user" aria-hidden="true"></i></i>
                             </button>
                             <ul class="dropdown-menu dropdown-menu-right">
-                                <li ng-if="!ic.user.isAdmin"><a class="dropdown-item" style="cursor: pointer;" data-ng-click="ic.openSuggestion()">Sugerir novo ponto de atendimento</a></li>
-                                <li ng-if="ic.user.isAdmin"><a class="dropdown-item" style="cursor: pointer;" data-ng-click="ic.openSuggestion()">Inserir novo ponto de atendimento</a></li>
+                                <li ng-if="!vm.user.isAdmin"><a class="dropdown-item" style="cursor: pointer;" data-ng-click="vm.openSuggestion()">Sugerir novo ponto de atendimento</a></li>
+                                <li ng-if="vm.user.isAdmin"><a class="dropdown-item" style="cursor: pointer;" data-ng-click="vm.openSuggestion()">Inserir novo ponto de atendimento</a></li>
                                 <li><a class="dropdown-item" href="/#/profile-settings">Editar perfil de usuário</a></li>
-                                <li ng-if="ic.user.isAdmin" role="separator" class="dropdown-divider"></li>
-                                <li ng-if="ic.user.isAdmin"><a class="dropdown-item" href="/#/reports">Denúncias de comentários abusivos</a></li>
-                                <li ng-if="ic.user.isAdmin"><a class="dropdown-item" href="/#/pending-stations">Pontos de atendimento pendentes</a></li>
-                                <li ng-if="ic.user.isAdmin"><a class="dropdown-item" href="/#/users">Usuários</a></li>
+                                <li ng-if="vm.user.isAdmin" role="separator" class="dropdown-divider"></li>
+                                <li ng-if="vm.user.isAdmin"><a class="dropdown-item" href="/#/reports">Denúncias de comentários abusivos</a></li>
+                                <li ng-if="vm.user.isAdmin"><a class="dropdown-item" href="/#/pending-stations">Pontos de atendimento pendentes</a></li>
+                                <li ng-if="vm.user.isAdmin"><a class="dropdown-item" href="/#/users">Usuários</a></li>
                                 <li role="separator" class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="" ng-click="ic.logout()">Sair</a></li>
+                                <li><a class="dropdown-item" href="" ng-click="vm.logout()">Sair</a></li>
                             </ul>
                         </div>
                     </div>
@@ -114,7 +114,6 @@
     <script src="/ngmap/build/scripts/ng-map.min.js"></script>
     <script src="/ngGeolocation/ngGeolocation.min.js"></script>
     <script src="https://maps.google.com/maps/api/js"></script>
-
 </body>
 
 </html>

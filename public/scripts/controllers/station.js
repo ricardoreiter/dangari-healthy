@@ -1,4 +1,4 @@
-(function() {
+  (function() {
     angular.module('dangari-healthy').controller('StationCtrl', function($http, $scope, $uibModal, station, StationSvc, Utils, ReviewSvc) {
         var self = this;
 
@@ -18,9 +18,7 @@
                             }
                             self.station.scoreAverage = _reviewsAvg(self.station.reviews);
                             StationSvc.update(self.station._id, self.station);
-                            console.log(self.station.scoreAverage);
                             calculateStars(self.station);
-                            console.log(self.station.stars);
                             loadStation();
                         } else {
                             toastr.error('Ocorreu um erro ao obter avaliações da estação');

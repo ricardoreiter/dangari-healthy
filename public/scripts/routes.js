@@ -9,9 +9,9 @@
     function config($routeProvider, $locationProvider) {
         $routeProvider
             .when('/', {
-                templateUrl: 'views/home.html',
-                controller: 'HomeCtrl',
-                controllerAs: 'vm'
+                templateUrl: 'views/home.html'
+                // controller: 'HomeCtrl',
+                // controllerAs: 'vm'
             })
 
             .when('/suggestion', {

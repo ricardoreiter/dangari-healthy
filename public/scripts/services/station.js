@@ -5,7 +5,10 @@
         .factory('StationSvc', Station);
 
     function Station($http, $q) {
-
+        var field = '';
+        var order = '';
+        var callback = undefined;
+        var searchValue = '';
         return {
             getPendings: _getPendings,
             getAll: _getAll,
@@ -13,8 +16,19 @@
             remove: _remove,
             update: _update,
             getReviews: _getReviews,
-            createReview: _createReview
-        }
+            createReview: _createReview,
+            set: function(f, v, o) {
+                field = f;
+                searchValue = v;
+                order = o;
+                if (callback) {
+                    callback();
+                }
+            },
+            setCb: function(cb) {
+                callback = cb;
+            }
+        };
 
         function _getReviews(id) {
             return $http.get('stations/' + id + '/reviews').then(
@@ -50,8 +64,23 @@
             );
         }
 
-        function _getAll(average) {
-            return $http.get('/stations').then(
+        function _getAll() {
+            console.log('feliz');
+            console.log(field);
+            var url = '/stations';
+            if (field) {
+                url += '?' + field + '=' + searchValue;
+            }
+            if (order) {
+                if (url.indexOf('?') > -1) {
+                    url += '&';
+                } else {
+                    url += '?';
+                }
+                url += 'o=' + order;
+            }
+            console.log(url);
+            return $http.get(url).then(
                 function(response) {
                     return response.data;
                 },

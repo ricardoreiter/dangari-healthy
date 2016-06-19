@@ -93,15 +93,49 @@ router.post('/:id/reviews', auth.ensureAuthorized, function(req, res, next) {
     });
 });
 
+// router.get('/', function(req, res, next) {
+//     Station.find({
+//         pending: false
+//     }, function(err, stations) {
+//         if (err) {
+//             return next(err);
+//         }
+//         res.json(stations);
+//     });
+// });
+
 router.get('/', function(req, res, next) {
-    Station.find({
-        pending: false
-    }, function(err, stations) {
+    var order = {};
+    var filter = {};
+    var name = req.query.name;
+    console.log('name ' + name);
+    filter.pending = false;
+    if (name) {
+        var regex = '.*' + name + '.*';
+        filter.name = new RegExp(regex);
+    }
+    var location = req.query.location;
+    console.log('location ' + location);
+    if (location) {
+        var regex = '.*' + location + '.*';
+        filter.location = new RegExp(regex);
+    }
+    var o = req.query.o;
+    console.log('order ' + o);
+    if (o) {
+        if (o === 'name') {
+            order.name = 'asc';
+        } else if (o === 'average') {
+            order.scoreAverage = 'desc';
+        }
+    }
+    console.log(order);
+    Station.find(filter, function(err, stations) {
         if (err) {
             return next(err);
         }
         res.json(stations);
-    });
+    }).sort(order);
 });
 
 router.get('/pendings/', function(req, res, next) {
@@ -114,7 +148,7 @@ router.get('/pendings/', function(req, res, next) {
         res.json(stations);
     }).sort({
         createdAt: 1
-    });;
+    });
 });
 
 router.post('/', function(req, res, next) {

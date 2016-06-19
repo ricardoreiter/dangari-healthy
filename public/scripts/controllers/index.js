@@ -5,13 +5,21 @@
     angular.module('dangari-healthy')
         .controller('IndexCtrl', IndexCtrl);
 
-    function IndexCtrl($scope, $uibModal, LocalStorageSvc, LoginSvc) {
+    function IndexCtrl($scope, $uibModal, LocalStorageSvc, LoginSvc, StationSvc) {
         var vm = this;
 
         vm.openSuggestion = openSuggestion;
+        vm.search = _search;
         vm.logout = logout;
+        vm.searchValue = '';
+        vm.field = 'name';
+        vm.order = 'name';
 
         login();
+
+        function _search() {
+            StationSvc.set(vm.field, vm.searchValue, vm.order);
+        }
 
         function login() {
             var token = LocalStorageSvc.getAuthToken();
