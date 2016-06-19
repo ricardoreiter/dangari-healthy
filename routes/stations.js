@@ -113,7 +113,7 @@ router.get('/', function(req, res, next) {
         var regex = '.*' + name + '.*';
         filter.name = new RegExp(regex);
     }
-    var location = req.query.location;
+    var location = req.query.place;
     if (location) {
         var regex = '.*' + location + '.*';
         filter.location = new RegExp(regex);
