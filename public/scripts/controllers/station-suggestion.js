@@ -7,14 +7,12 @@
     function StationSuggestionCtrl($scope, NgMap, station, user, $uibModalInstance, StationSvc, Utils, $geolocation, $timeout) {
         var self = this;
         self.new = station === null;
-        self.station = station;
+        self.station = self.new ? {} : station;
         self.remove = _removeStation;
         self.approve = _approve;
         self.onLoadBufferImagem = onLoadBufferImagem;
         self.urlPhoto;
         self.map = null;
-        self.latitude = null;
-        self.longitude = null;
         self.marker = null;
 
         NgMap.getMap("map").then(function(map) {
@@ -23,23 +21,37 @@
                 timeout: 60000
             }).then(function(position) {
                 google.maps.event.addListener(map, 'click', function(event) {
-                    self.latitude = event.latLng.lat();
-                    self.longitude = event.latLng.lng();
-                    var position = new google.maps.LatLng(self.latitude, self.longitude);
-                    map.panTo(position);
+                    self.station.locationLng = event.latLng.lng();
+                    self.station.locationLat = event.latLng.lat();
+                    getLocationStr(self.station.locationLat, self.station.locationLng);
+                    var position = new google.maps.LatLng(self.station.locationLat, self.station.locationLng);
+                    map.panTo(position); // centraliza o mapa na nova posição
                     if (self.marker){
-                        self.marker.setMap(null);
+                        self.marker.setMap(null); // remove o marcador anterior
                     }
                     self.marker = new google.maps.Marker();
                     self.marker.setPosition(position);
-                    self.marker.setMap(map);
+                    self.marker.setMap(map); // adiciona o novo marcador no mapa
                 });
-                self.latitude = position.coords.latitude;
-                self.longitude = position.coords.longitude;
+                self.station.locationLat = position.coords.latitude;
+                self.station.locationLng = position.coords.longitude;
             });
         }, function(error){
             console.log('error getting map');
         });
+        
+        function getLocationStr(lat, lng){
+            var geocoder = new google.maps.Geocoder();
+            var latlng = new google.maps.LatLng(lat, lng);
+            geocoder.geocode({ 'latLng': latlng }, function (results, status) {
+                self.station.location = "Localização desconhecida";
+                if (status == google.maps.GeocoderStatus.OK) {
+                    if (results[0]) {
+                        self.station.location = results[0].formatted_address;
+                    }
+                }
+            });
+        }
 
         self.render = false;
         $timeout(function () {
@@ -60,7 +72,6 @@
 
 
         self.add = function(station) {
-            station.location = 'Rua Rio Branco, 797';
             station.pending = !user.isAdmin;
             StationSvc.create(station).then(
                 function(response) {
@@ -75,7 +86,7 @@
                     toastr.error('Ocorreu um erro ao enviar a sugestão.');
                 }
             );
-        }
+        };
 
         function _approve(station) {
             station.pending = false;
