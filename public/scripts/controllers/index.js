@@ -14,11 +14,13 @@
         vm.searchValue = '';
         vm.field = 'name';
         vm.order = 'name';
+        console.log('tapete');
 
         login();
 
         function _search() {
             StationSvc.set(vm.field, vm.searchValue, vm.order);
+            $('#basic-addon1').triggerHandler('click');
         }
 
         function login() {
