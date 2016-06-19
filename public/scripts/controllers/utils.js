@@ -58,18 +58,5 @@ angular.module("dangari-healthy")
             self.marker.setMap(map); // adiciona o novo marcador no mapa
         };
 
-        this.getLocationStr = function(lat, lng){
-            var geocoder = new google.maps.Geocoder();
-            var latlng = new google.maps.LatLng(lat, lng);
-            geocoder.geocode({ 'latLng': latlng }, function (results, status) {
-                self.station.location = "Localização desconhecida";
-                if (status == google.maps.GeocoderStatus.OK) {
-                    if (results[0]) {
-                        self.station.location = results[0].formatted_address;
-                    }
-                }
-            });
-        };
-
     }]);
 

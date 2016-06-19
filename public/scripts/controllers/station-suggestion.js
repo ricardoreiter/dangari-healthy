@@ -41,6 +41,19 @@
             console.log('error getting map');
         });
 
+         function getLocationStr(lat, lng){
+            var geocoder = new google.maps.Geocoder();
+            var latlng = new google.maps.LatLng(lat, lng);
+            geocoder.geocode({ 'latLng': latlng }, function (results, status) {
+                self.station.location = "Localização desconhecida";
+                if (status == google.maps.GeocoderStatus.OK) {
+                    if (results[0]) {
+                        self.station.location = results[0].formatted_address;
+                    }
+                }
+            });
+        };
+
         
         // Gambiarra para resolver o problema de não carregar o mapa na segunda vez que acessa
         self.render = false;
