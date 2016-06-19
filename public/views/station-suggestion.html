@@ -14,7 +14,6 @@
             <div ng-if="ctrl.render">
                 <ng-map id="map" class="card-img-top imagem" center="[{{ctrl.station.locationLat}}, {{ctrl.station.locationLng}}]" ></ng-map>
             </div>
-            <reverse-geocode lat="{{ctrl.station.locationLat}}" lng="{{ctrl.station.locationLng}}"></reverse-geocode>
         </div>
         <br>
         <label for="name"><b>Possui uma imagem?</b></label>
