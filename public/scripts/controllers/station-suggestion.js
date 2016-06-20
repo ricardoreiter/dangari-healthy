@@ -160,13 +160,9 @@
             reader.readAsArrayBuffer(file);
         }
 
-
-
-
         self.loadImage = function(file) {
             loadImage(file, self.onLoadUrlImagem, self.onLoadBufferImagem);
         };
-
 
         self.onLoadUrlImagem = function(file) {
             self.urlPhoto = file.target.result;

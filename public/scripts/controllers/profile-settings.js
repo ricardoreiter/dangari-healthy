@@ -5,7 +5,7 @@
     angular.module('dangari-healthy')
         .controller('ProfileSettingsCtrl', ProfileSettingsCtrl);
 
-    function ProfileSettingsCtrl($scope, LoginSvc, UserSvc, user) {
+    function ProfileSettingsCtrl($scope, LoginSvc, UserSvc, user, Utils) {
         var vm = this;
 
         LoginSvc.getCurrentUser()
@@ -22,16 +22,26 @@
                         vm.profile = currentUser.data;
                     }
                     vm.profile.password = "";
-                }, 
+                    loadPhoto();
+                },
                 function(error) {
                     console.error(error);
                     toastr.error("Ocorreu um erro ao buscar o usuário ativo");
                 }
             );
 
-        
+        loadPhoto = function() {
+            if (vm.profile && vm.profile.photo) {
+                vm.urlImagem = "data:image/JPEG;base64," + Utils.base64ArrayBuffer(vm.profile.photo.data);
+            } else {
+                vm.urlImagem = "http://localhost:3000/assets/semFoto.jpg";
+            }
+        };
+        loadPhoto();
 
-        function onLoadBufferImagem(file){
+
+
+        function onLoadBufferImagem(file) {
             var uintArray = new Uint8Array(file.target.result);
             var byteArray = [];
             uintArray.forEach(function(val) {
@@ -56,6 +66,8 @@
             if (vm.profile.password && (vm.profile.password != vm.profile.confirmPassword)) {
                 toastr.error("As senhas digitadas não conferem");
             } else {
+                console.log('salvar');
+                console.log(vm.profile);
                 UserSvc.saveUser(vm.profile._id, vm.profile)
                     .then(
                         function(response) {
@@ -69,19 +81,27 @@
             }
         };
 
-        vm.loadImage = function (file) {
+        vm.loadImage = function(file) {
             loadImage(file, vm.onLoadUrlImagem, vm.onLoadBufferImagem);
         };
 
-        vm.onLoadUrlImagem = function (file) {
+        vm.onLoadUrlImagem = function(file) {
             vm.urlImagem = file.target.result;
             $scope.$apply();
         };
 
-        vm.onLoadBufferImagem = function (file) {
-            vm.station.image = {
-                bytes: onLoadBufferImagem(file)
-            };
+        vm.onLoadBufferImagem = function(file) {
+            vm.profile.photo = getByteArrayFromFile(file);
+            console.log(vm.profile.photo);
         };
+
+        function getByteArrayFromFile(file) {
+            var uintArray = new Uint8Array(file.target.result);
+            var byteArray = [];
+            uintArray.forEach(function(val) {
+                byteArray.push(val);
+            });
+            return byteArray;
+        }
     }
 }());

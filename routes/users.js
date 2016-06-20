@@ -90,10 +90,13 @@ router.put('/:id', auth.ensureAuthorized, function(req, res, next) {
         token: req.token
     }, function(err, user) {
         var reqUser = new User(req.body);
+        console.log('batata');
+        console.log(reqUser);
 
         var editAndSaveUser = function(userToEdit, isAdmin) {
             userToEdit.name = reqUser.name;
             userToEdit.email = reqUser.email;
+            userToEdit.photo = reqUser.photo;
             if (reqUser.password) {
                 userToEdit.password = reqUser.password;
             }

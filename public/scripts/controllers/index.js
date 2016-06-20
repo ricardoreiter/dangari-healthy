@@ -18,7 +18,9 @@
 
         function _search() {
             StationSvc.set(vm.field, vm.searchValue, vm.order);
-            $('#basic-addon1').triggerHandler('click');
+            $('#basic-addon1').get(0).click();
+            // $('#basic-addon1').get(0).trigger("click");
+            // $('#basic-addon1').triggerHandler("click");
         }
 
         function login() {
