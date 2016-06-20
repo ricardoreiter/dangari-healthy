@@ -17,7 +17,7 @@
 
         NgMap.getMap("map").then(function(map) {
             self.map = map;
-            if (self.new){
+            if (self.new) {
                 $geolocation.getCurrentPosition({
                     timeout: 60000
                 }).then(function(position) {
@@ -33,18 +33,28 @@
                     self.station.locationLng = position.coords.longitude;
                     Utils.setMarker(map, self.station.locationLat, self.station.locationLng);
                 });
-            }else if (self.station.locationLat && self.station.locationLng){
+            } else if (self.station.locationLat && self.station.locationLng) {
+                google.maps.event.addListener(map, 'click', function(event) {
+                    self.station.locationLng = event.latLng.lng();
+                    self.station.locationLat = event.latLng.lat();
+                    getLocationStr(self.station.locationLat, self.station.locationLng);
+                    Utils.centralizeMap(map, self.station.locationLat, self.station.locationLng);
+                    Utils.setMarker(map, self.station.locationLat, self.station.locationLng);
+
+                });
                 Utils.centralizeMap(map, self.station.locationLat, self.station.locationLng);
                 Utils.setMarker(map, self.station.locationLat, self.station.locationLng);
             }
-        }, function(error){
+        }, function(error) {
             console.log('error getting map');
         });
 
-         function getLocationStr(lat, lng){
+        function getLocationStr(lat, lng) {
             var geocoder = new google.maps.Geocoder();
             var latlng = new google.maps.LatLng(lat, lng);
-            geocoder.geocode({ 'latLng': latlng }, function (results, status) {
+            geocoder.geocode({
+                'latLng': latlng
+            }, function(results, status) {
                 self.station.location = "Localização desconhecida";
                 if (status == google.maps.GeocoderStatus.OK) {
                     if (results[0]) {
@@ -54,10 +64,10 @@
             });
         };
 
-        
+
         // Gambiarra para resolver o problema de não carregar o mapa na segunda vez que acessa
         self.render = false;
-        $timeout(function () {
+        $timeout(function() {
             self.render = true;
         }, 500);
 
