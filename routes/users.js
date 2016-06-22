@@ -97,6 +97,7 @@ router.put('/:id', auth.ensureAuthorized, function(req, res, next) {
             userToEdit.name = reqUser.name;
             userToEdit.email = reqUser.email;
             userToEdit.photo = reqUser.photo;
+            userToEdit.banned = reqUser.banned;
             if (reqUser.password) {
                 userToEdit.password = reqUser.password;
             }

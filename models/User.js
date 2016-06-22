@@ -7,7 +7,8 @@ var UserSchema = new mongoose.Schema({
     token: String,
     email: String,
     password: String,
-    isAdmin: Boolean
+    isAdmin: Boolean,
+    banned: Boolean
 }, {
     timestamps: true
 });
