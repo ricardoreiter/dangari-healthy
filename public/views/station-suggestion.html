@@ -1,7 +1,7 @@
 <div class="container container-white">
     <br>
     <form name="formSuggestion" class="form-horizontal">
-        <legend ng-show="ctrl.new">Sugerir novo posto de atendimento<i class="fa fa-plus-square" aria-hidden="true"></i></legend>
+        <legend ng-show="ctrl.new"><span ng-if="ctrl.isAdmin">Cadastrar</span><span ng-if="!ctrl.isAdmin">Sugerir</span> novo posto de atendimento <i class="fa fa-plus-square" aria-hidden="true"></i></legend>
         <legend ng-show="!ctrl.new">Aprovar posto de atendimento<i class="fa fa-plus-square" aria-hidden="true"></i></legend>
         <br>
         <label for="name"><b>Nome da instituição:</b></label>
@@ -12,7 +12,7 @@
         <br>
         <div class="form-group">
             <div ng-if="ctrl.render">
-                <ng-map id="map" class="card-img-top imagem" center="[{{ctrl.station.locationLat}}, {{ctrl.station.locationLng}}]" ></ng-map>
+                <ng-map id="map" class="card-img-top imagem" center="[{{ctrl.station.locationLat}}, {{ctrl.station.locationLng}}]"></ng-map>
             </div>
         </div>
         <br>
@@ -26,13 +26,15 @@
         <span class="btn btn-file btn-info btn-sm">Selecionar imagem
             <input name="imagem" type="file" ng-model="img" onchange="angular.element(this).scope().ctrl.loadImage(this.files[0])">
         </span>
-        <br><br>
+        <br>
+        <br>
         <div class="row">
             <div class="col-xs-4 col-xs-6">
-               <button class="btn btn-success btn-bottom" ng-show="ctrl.new" ng-click="ctrl.add(ctrl.station)">Enviar para aprovação</button>
-               <button class="btn btn-success btn-bottom" ng-show="!ctrl.new" ng-click="ctrl.approve(ctrl.station)">Aprovar</button>
-               <button class="btn btn-danger btn-bottom" ng-show="!ctrl.new" ng-click="ctrl.remove(ctrl.station._id)">Recusar</button>
-               <button class="btn btn-default btn-bottom" ng-click="ctrl.close()">Cancelar</button>
+                <button ng-if="!ctrl.isAdmin" class="btn btn-success btn-bottom" ng-show="ctrl.new" ng-click="ctrl.add(ctrl.station)">Enviar para aprovação</button>
+                <button ng-if="ctrl.isAdmin" class="btn btn-success btn-bottom" ng-show="ctrl.new" ng-click="ctrl.add(ctrl.station)">Cadastrar</button>
+                <button class="btn btn-success btn-bottom" ng-show="!ctrl.new" ng-click="ctrl.approve(ctrl.station)">Aprovar</button>
+                <button class="btn btn-danger btn-bottom" ng-show="!ctrl.new" ng-click="ctrl.remove(ctrl.station._id)">Recusar</button>
+                <button class="btn btn-default btn-bottom" ng-click="ctrl.close()">Cancelar</button>
             </div>
         </div>
     </form>

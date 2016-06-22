@@ -4,7 +4,7 @@
 
     angular.module('dangari-healthy').controller('StationSuggestionCtrl', StationSuggestionCtrl);
 
-    function StationSuggestionCtrl($scope, NgMap, station, user, $uibModalInstance, StationSvc, Utils, $geolocation, $timeout) {
+    function StationSuggestionCtrl($scope, NgMap, LoginSvc, station, user, $uibModalInstance, StationSvc, Utils, $geolocation, $timeout) {
         var self = this;
         self.new = station === null;
         self.station = self.new ? {} : station;
@@ -14,6 +14,15 @@
         self.urlPhoto;
         self.map = null;
         self.marker = null;
+
+        LoginSvc.getCurrentUser()
+            .then(
+                function(response) {
+                    if (response) {
+                        self.isAdmin = response.data.isAdmin;
+                    }
+                }
+            );
 
         NgMap.getMap("map").then(function(map) {
             self.map = map;

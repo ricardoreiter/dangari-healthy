@@ -102,4 +102,26 @@ router.post('/', function(req, res, next) {
     });
 });
 
+router.delete('/:id', auth.ensureAuthorized, function(req, res, next) {
+    User.findOne({
+        token: req.token
+    }, function(err, user) {
+        if (err) {
+            return next(err);
+        }
+
+        if (!user.isAdmin) {
+            res.status(403).send('Access denied');
+        } else {
+            Review.findOne({
+                _id: req.params.id
+            }, function(err, review) {
+                if (err) {
+                    return next(err);
+                }
+            }).remove().exec();
+        }
+    });
+});
+
 module.exports = router;

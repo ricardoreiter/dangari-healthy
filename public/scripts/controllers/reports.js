@@ -1,8 +1,8 @@
-(function () {
+(function() {
 
     angular.module('dangari-healthy')
-           .controller('ReportsCtrl', ReportsCtrl);
-    
+        .controller('ReportsCtrl', ReportsCtrl);
+
     function ReportsCtrl(ReviewSvc) {
         var self = this;
 
@@ -20,8 +20,9 @@
         self.deleteComment = deleteComment;
         self.ignoreReport = ignoreReport;
 
-        function deleteComment(report){
+        function deleteComment(report) {
             removeReportFromList(report);
+            ReviewSvc.delete(report._id);
             toastr.success("Comentário apagado com sucesso!");
         }
 
@@ -32,14 +33,14 @@
             }
         }
 
-        function ignoreReport(report){
+        function ignoreReport(report) {
             ReviewSvc.ignoreComplaints(report._id)
                 .then(
-                    function (response) {
+                    function(response) {
                         removeReportFromList(report);
                         toastr.success("Denúncias sobre o comentário ignoradas!");
                     },
-                    function (error) {
+                    function(error) {
                         console.error(error);
                         toastr.error("Ocorreu um erro ao ignorar as denúncias");
                     }

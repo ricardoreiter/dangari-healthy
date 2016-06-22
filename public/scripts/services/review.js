@@ -9,7 +9,8 @@
         return {
             complaintReview: _complaintReview,
             getAllWithComplaint: _getAllWithComplaint,
-            ignoreComplaints: _ignoreComplaints
+            ignoreComplaints: _ignoreComplaints,
+            delete: _delete
         }
 
         function _complaintReview(id) {
@@ -42,8 +43,18 @@
                 function(err) {
                     return $q.reject(err);
                 }
-            )   
+            )
         }
 
+        function _delete(id) {
+            return $http.delete('reviews/' + id).then(
+                function(response) {
+                    return response.data;
+                },
+                function(err) {
+                    return $q.reject(err);
+                }
+            )
+        }
     }
 }());
