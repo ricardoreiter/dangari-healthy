@@ -81,6 +81,21 @@
             }
         };
 
+
+        vm.ban = function() {
+            vm.profile.banned = true;
+            UserSvc.saveUser(vm.profile._id, vm.profile)
+                .then(
+                    function(response) {
+                        toastr.success("Usuário banido com sucesso");
+                    },
+                    function(error) {
+                        console.error(error);
+                        toastr.error("Ocorreu um erro ao banir o usuário");
+                    }
+                );
+        }
+
         vm.loadImage = function(file) {
             loadImage(file, vm.onLoadUrlImagem, vm.onLoadBufferImagem);
         };

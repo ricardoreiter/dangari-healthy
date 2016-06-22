@@ -37,6 +37,7 @@
         }
 
         function checkIfLogged() {
+            console.log('caralhoooooooooo');
             var token = LocalStorageSvc.getAuthToken();
             if (token) {
                 LoginSvc.getCurrentUser()
@@ -62,9 +63,13 @@
                 .then(
                     function(response) {
                         if (response) {
-                            LocalStorageSvc.setAuthToken(response.token);
-                            toastr.success('Logado com sucesso!');
-                            window.location = '/#/';
+                            if (response.data.banned) {
+                                toastr.error('Usuário banido, contate um administrador!');
+                            } else {
+                                LocalStorageSvc.setAuthToken(response.token);
+                                toastr.success('Logado com sucesso!');
+                                window.location = '/#/';
+                            }
                         } else {
                             toastr.error('Ocorreu um erro ao realizar login');
                         }
