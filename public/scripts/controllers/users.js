@@ -1,7 +1,7 @@
-(function () {
+(function() {
 
     angular.module('dangari-healthy')
-           .controller('UsersCtrl', UsersCtrl);
+        .controller('UsersCtrl', UsersCtrl);
 
     function UsersCtrl($uibModal, UserSvc) {
         var self = this;
@@ -27,7 +27,7 @@
 
         self.openUser = openUser;
 
-        function openUser(user){
+        function openUser(user) {
             $uibModal.open({
                 templateUrl: 'views/profile-settings.html',
                 controller: 'ProfileSettingsCtrl',
@@ -39,7 +39,5 @@
                 }
             });
         };
-
     }
-
 }());

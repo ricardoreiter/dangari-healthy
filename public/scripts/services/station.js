@@ -17,6 +17,9 @@
             update: _update,
             getReviews: _getReviews,
             createReview: _createReview,
+            countByCity: _countByCity,
+            avgByCity: _avgByCity,
+            reviewsByCity: _reviewsByCity,
             set: function(f, v, o) {
                 field = f;
                 searchValue = v;
@@ -83,6 +86,51 @@
                 },
                 function(errResponse) {
                     console.error('Erro ao obter todas estações.');
+                    return $q.reject(errResponse);
+                }
+            );
+        }
+
+        function _reviewsByCity(sort) {
+            var url = '/stations/reviews-by-city'
+            if (sort) {
+                url += '?s=' + sort
+            }
+            return $http.get(url).then(
+                function(response) {
+                    return response.data;
+                },
+                function(errResponse) {
+                    return $q.reject(errResponse);
+                }
+            );
+        }
+
+        function _avgByCity(sort) {
+            var url = '/stations/avg-by-city'
+            if (sort) {
+                url += '?s=' + sort
+            }
+            return $http.get(url).then(
+                function(response) {
+                    return response.data;
+                },
+                function(errResponse) {
+                    return $q.reject(errResponse);
+                }
+            );
+        }
+
+        function _countByCity(sort) {
+            var url = '/stations/count-by-city'
+            if (sort) {
+                url += '?s=' + sort
+            }
+            return $http.get(url).then(
+                function(response) {
+                    return response.data;
+                },
+                function(errResponse) {
                     return $q.reject(errResponse);
                 }
             );

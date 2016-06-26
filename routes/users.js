@@ -6,14 +6,41 @@ var jwt = require('jsonwebtoken');
 var User = mongoose.model('User');
 var auth = require('../utils/authentication');
 
-router.get('/:id', function(req, res, next) {
-    User.findOne({
-        _id: req.params.id
-    }, 'name login isAdmin', function(err, user) {
+// router.get('/:id', function(req, res, next) {
+//     User.findOne({
+//         _id: req.params.id
+//     }, 'name login isAdmin', function(err, user) {
+//         if (err) {
+//             return next(err);
+//         }
+//         res.json(user);
+//     });
+// });
+
+router.get('/summary', function(req, res, next) {
+    User.find('login isAdmin banned', function(err, users) {
         if (err) {
             return next(err);
         }
-        res.json(user);
+        var user = 0,
+            banned = 0,
+            admin = 0
+
+        for (u of users) {
+            if (u.banned) {
+                banned++
+            } else if (u.isAdmin) {
+                admin++
+            } else {
+                user++
+            }
+        }
+
+        res.json({
+            users: user,
+            banned: banned,
+            admin: admin
+        });
     });
 });
 
@@ -26,7 +53,6 @@ router.get('/', function(req, res, next) {
     });
 });
 
-// TODO AJEITA ESSA PORRA
 router.get('/me/me', auth.ensureAuthorized, function(req, res, next) {
     User.findOne({
         token: req.token
@@ -90,9 +116,6 @@ router.put('/:id', auth.ensureAuthorized, function(req, res, next) {
         token: req.token
     }, function(err, user) {
         var reqUser = new User(req.body);
-        console.log('batata');
-        console.log(reqUser);
-
         var editAndSaveUser = function(userToEdit, isAdmin) {
             userToEdit.name = reqUser.name;
             userToEdit.email = reqUser.email;

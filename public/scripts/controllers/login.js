@@ -37,7 +37,6 @@
         }
 
         function checkIfLogged() {
-            console.log('caralhoooooooooo');
             var token = LocalStorageSvc.getAuthToken();
             if (token) {
                 LoginSvc.getCurrentUser()
@@ -63,9 +62,7 @@
                 .then(
                     function(response) {
                         if (response) {
-                            if (response.data.banned) {
-                                toastr.error('Usuário banido, contate um administrador!');
-                            } else {
+                            if (response) {
                                 LocalStorageSvc.setAuthToken(response.token);
                                 toastr.success('Logado com sucesso!');
                                 window.location = '/#/';
@@ -75,8 +72,12 @@
                         }
                     },
                     function(error) {
-                        console.error(error);
-                        toastr.error('Ocorreu um erro ao realizar login');
+                        if (error.status === 403) {
+                            toastr.error('Usuário banido, contate um administrador!');
+                        } else {
+                            console.error(error);
+                            toastr.error('Ocorreu um erro ao realizar login');
+                        }
                     }
                 );
         }

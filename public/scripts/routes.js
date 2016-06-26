@@ -9,44 +9,50 @@
     function config($routeProvider, $locationProvider) {
         $routeProvider
             .when('/', {
-                templateUrl: 'views/home.html'
-                // controller: 'HomeCtrl',
-                // controllerAs: 'vm'
+                templateUrl: 'views/home.html',
+                controller: 'HomeCtrl',
+                controllerAs: 'vm'
             })
 
-            .when('/suggestion', {
-                templateUrl: 'views/station-suggestion.html',
-                controller: 'StationSuggestionCtrl',
-                controllerAs: 'ctrl'
-            })
+        .when('/suggestion', {
+            templateUrl: 'views/station-suggestion.html',
+            controller: 'StationSuggestionCtrl',
+            controllerAs: 'ctrl'
+        })
 
-            .when('/pending-stations', {
-                templateUrl: 'views/pending-stations.html',
-                controller: 'PendingStationsCtrl',
-                controllerAs: 'ctrl'
-            })
+        .when('/pending-stations', {
+            templateUrl: 'views/pending-stations.html',
+            controller: 'PendingStationsCtrl',
+            controllerAs: 'ctrl'
+        })
 
-            .when('/profile-settings', {
-                templateUrl: 'views/profile-settings.html',
-                controller: 'ProfileSettingsCtrl',
-                controllerAs: 'vm',
-                resolve: {
-                    user: function() {
-                        return undefined;
-                    }
+        .when('/profile-settings', {
+            templateUrl: 'views/profile-settings.html',
+            controller: 'ProfileSettingsCtrl',
+            controllerAs: 'vm',
+            resolve: {
+                user: function() {
+                    return undefined;
                 }
-            })
+            }
+        })
 
-            .when('/users', {
-                templateUrl: 'views/users.html',
-                controller: 'UsersCtrl',
-                controllerAs: 'ctrl'
-            })
+        .when('/users', {
+            templateUrl: 'views/users.html',
+            controller: 'UsersCtrl',
+            controllerAs: 'ctrl'
+        })
 
-            .when('/reports', {
-                templateUrl: 'views/reports.html',
-                controller: 'ReportsCtrl',
-                controllerAs: 'ctrl'
-            });
+        .when('/dashboard', {
+            templateUrl: 'views/dashboard.html',
+            controller: 'DashboardCtrl',
+            controllerAs: 'vm'
+        })
+
+        .when('/reports', {
+            templateUrl: 'views/reports.html',
+            controller: 'ReportsCtrl',
+            controllerAs: 'ctrl'
+        });
     }
 }());

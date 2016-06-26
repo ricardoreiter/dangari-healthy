@@ -59,6 +59,7 @@
                                 <li ng-if="vm.user.isAdmin"><a class="dropdown-item" style="cursor: pointer;" data-ng-click="vm.openSuggestion()">Inserir novo ponto de atendimento</a></li>
                                 <li><a class="dropdown-item" href="/#/profile-settings">Editar perfil de usuário</a></li>
                                 <li ng-if="vm.user.isAdmin" role="separator" class="dropdown-divider"></li>
+                                <li ng-if="vm.user.isAdmin"><a class="dropdown-item" href="/#/dashboard">Relatórios</a></li>
                                 <li ng-if="vm.user.isAdmin"><a class="dropdown-item" href="/#/reports">Denúncias de comentários abusivos</a></li>
                                 <li ng-if="vm.user.isAdmin"><a class="dropdown-item" href="/#/pending-stations">Pontos de atendimento pendentes</a></li>
                                 <li ng-if="vm.user.isAdmin"><a class="dropdown-item" href="/#/users">Usuários</a></li>
@@ -82,6 +83,7 @@
     </div>
 
     <script src="/angular/angular.min.js"></script>
+    <script src="/Chart.js/dist/Chart.min.js"></script>
     <script src="/angular-route/angular-route.min.js"></script>
     <script src="/angular-touch/angular-touch.js"></script>
     <script src="/angular-carousel/dist/angular-carousel.js"></script>
@@ -111,6 +113,7 @@
     <script src="scripts/controllers/users.js"></script>
     <script src="scripts/controllers/reports.js"></script>
     <script src="scripts/controllers/confirmation-modal.js"></script>
+    <script src="scripts/controllers/dashboard.js"></script>
     <script src="scripts/controllers/utils.js"></script>
     <script src="scripts/routes.js"></script>
     <script src="scripts/session-auth-injector.js"></script>

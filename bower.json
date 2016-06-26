@@ -33,7 +33,8 @@
     "angular-loading-bar": "~0.9.0",
     "angular-carousel": "~1.0.1",
     "ngmap": "1.17.3",
-    "ngGeolocation" : "0.0.8"
+    "ngGeolocation": "0.0.8",
+    "Chart.js": "^2.1.6"
   },
   "resolutions": {
     "angular": "1.5.7"

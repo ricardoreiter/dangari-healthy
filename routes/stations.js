@@ -185,4 +185,161 @@ router.put('/:id', function(req, res, next) {
     });
 });
 
+router.get('/count-by-city', function(req, res, next) {
+    Station.find({
+        pending: false
+    }, function(err, stations) {
+        if (err) {
+            return next(err);
+        }
+        var map = _groupByCity(stations)
+        map.sort(function(a, b) {
+            return req.query.s === 'desc' ? b.v.length - a.v.length : a.v.length - b.v.length
+        })
+        var result = {
+            labels: [],
+            data: []
+        }
+        for (var i = 0; i < Math.min(map.length, 3); i++) {
+            var entry = map[i]
+            result.data.push(entry.v.length)
+            result.labels.push(entry.k)
+        }
+        res.json(result);
+    })
+});
+
+router.get('/avg-by-city', function(req, res, next) {
+    Station.find({
+        pending: false
+    }, function(err, stations) {
+        if (err) {
+            return next(err);
+        }
+        var map = _groupByCity(stations)
+        map = _avgByCity(map)
+        var result = {
+            labels: [],
+            data: []
+        }
+        map.sort(function(a, b) {
+            return req.query.s === 'desc' ? b.v - a.v : a.v - b.v
+        })
+        for (var i = 0; i < Math.min(map.length, 3); i++) {
+            var entry = map[i]
+            result.data.push(entry.v)
+            result.labels.push(entry.k)
+        }
+        res.json(result);
+    })
+});
+
+router.get('/reviews-by-city', function(req, res, next) {
+    Station.find({
+            pending: false
+        }).populate('reviews')
+        .exec(function(err, stations) {
+            if (err) {
+                return next(err);
+            }
+            var map = _groupByCity(stations)
+            map = _reviewsByCity(map)
+            var result = {
+                labels: [],
+                data: []
+            }
+            map.sort(function(a, b) {
+                return req.query.s === 'desc' ? b.v - a.v : a.v - b.v
+            })
+            for (var i = 0; i < Math.min(map.length, 3); i++) {
+                var entry = map[i]
+                result.data.push(entry.v)
+                result.labels.push(entry.k)
+            }
+            res.json(result);
+        })
+});
+
+function _groupByCity(stations) {
+    var result = [];
+    for (var i = 0; i < stations.length; i++) {
+        var station = stations[i]
+        var city = _city(station)
+        var entry = _find(city, result)
+        if (entry) {
+            entry.v.push(station)
+        } else {
+            entry = {
+                k: city,
+                v: [station]
+            }
+            result.push(entry)
+        }
+    }
+    return result;
+}
+
+function _city(station) {
+    var location = station.location;
+    if (typeof location === 'string') {
+        var res = location.split(',')
+        if (res.length === 5) {
+            return res[2].trim();
+        }
+    }
+}
+
+function _find(city, map) {
+    for (var i = 0; i < map.length; i++) {
+        entry = map[i]
+        if (entry.k === city) {
+            return entry
+        }
+    }
+}
+
+function _avgByCity(map) {
+    var nMap = []
+    for (entry of map) {
+        var nEntry = {
+            k: entry.k,
+            v: _avg(entry.v)
+        }
+        nMap.push(nEntry)
+    }
+    return nMap
+}
+
+function _reviewsByCity(map) {
+    var nMap = []
+    for (entry of map) {
+        var nEntry = {
+            k: entry.k,
+            v: _sumReviews(entry.v)
+        }
+        nMap.push(nEntry)
+    }
+    return nMap
+}
+
+function _avg(stations) {
+    var length = stations.length
+    var sum = 0;
+    for (var i = 0; i < length; i++) {
+        var station = stations[i]
+        var score = station.scoreAverage
+        sum += score ? score : 0
+    }
+    return sum / length
+}
+
+function _sumReviews(stations) {
+    var sum = 0
+    for (station of stations) {
+        var reviews = station.reviews;
+        sum += reviews ? reviews.length : 0
+    }
+    return sum
+}
+
 module.exports = router;

@@ -1,4 +1,4 @@
-<div class="container" ng-controller="HomeCtrl as vm">
+<div class="container">
     <div class="card-columns">
         <div ng-repeat="station in vm.stations" class="card station-card" ng-click="vm.openStation(station)">
             <!--<div class="portlet">-->
@@ -7,8 +7,7 @@
                 <h3>{{station.name}}</h3>
                 <i ng-repeat="star in station.stars track by $index" class="fa {{star}} score-star-general" aria-hidden="true"></i>
                 <hr/> {{station.scoreAverage}}
-                <br>
-                {{station.location}}
+                <br> {{station.location}}
             </div>
         </div>
     </div>

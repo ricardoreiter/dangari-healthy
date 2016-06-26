@@ -5,21 +5,28 @@ var mongoose = require('mongoose');
 var User = mongoose.model('User');
 
 router.post('/', function(req, res, next) {
-	User.findOne({login : req.body.login, password: req.body.password}, function(err, user) {
-		if (err) {
+    User.findOne({
+        login: req.body.login,
+        password: req.body.password
+    }, function(err, user) {
+        if (err) {
             res.status(500).send("Error occured: " + err);
         } else {
             if (user) {
-               res.json({
+                if (user.banned) {
+                    res.status(403).send('User banned');
+                    return;
+                }
+                res.json({
                     type: true,
                     data: user,
                     token: user.token
                 });
             } else {
-            	res.status(500).send('Incorrect login/password');
+                res.status(500).send('Incorrect login/password');
             }
         }
-	});
+    });
 });
 
 module.exports = router;
