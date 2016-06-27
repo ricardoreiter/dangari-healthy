@@ -260,6 +260,32 @@ router.get('/reviews-by-city', function(req, res, next) {
         })
 });
 
+router.get('/summary-by-city', function(req, res, next) {
+    Station.find({
+            pending: false
+        }).populate('reviews')
+        .exec(function(err, stations) {
+            if (err) {
+                return next(err);
+            }
+            var map = _groupByCity(stations)
+            map = _summaryByCity(map)
+            map.sort(function(a, b) {
+                return a.k.localeCompare(b.k)
+            })
+            var result = {
+                labels: [],
+                data: []
+            }
+            for (entry of map) {
+                result.labels.push(entry.k)
+                result.data.push([entry.v.general, entry.v.reception, entry.v.structure, entry.v.attendence, entry.v.punctuality])
+            }
+            res.json(result);
+        })
+});
+
+
 function _groupByCity(stations) {
     var result = [];
     for (var i = 0; i < stations.length; i++) {
@@ -340,6 +366,48 @@ function _sumReviews(stations) {
         sum += reviews ? reviews.length : 0
     }
     return sum
+}
+
+function _summaryByCity(map) {
+    var result = []
+    for (entry of map) {
+        var nEntry = {
+            k: entry.k,
+            v: _summary(entry.v)
+        }
+        result.push(nEntry)
+    }
+    return result
+}
+
+function _summary(stations) {
+    var summary = {
+        general: 0,
+        reception: 0,
+        structure: 0,
+        attendence: 0,
+        punctuality: 0
+    }
+    var count = 0
+    for (station of stations) {
+        var reviews = station.reviews
+        if (reviews) {
+            for (review of reviews) {
+                count++
+                summary.general += review.scoreGeneral
+                summary.reception += review.scoreReception
+                summary.structure += review.scoreStructure
+                summary.attendence += review.scoreAttendence
+                summary.punctuality += review.scorePunctuality
+            }
+        }
+    }
+    summary.general = summary.general / count
+    summary.reception = summary.reception / count
+    summary.structure = summary.structure / count
+    summary.attendence = summary.attendence / count
+    summary.punctuality = summary.punctuality / count
+    return summary
 }
 
 module.exports = router;

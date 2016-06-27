@@ -78,11 +78,40 @@
                 }
             );
 
+        StationSvc.summaryByCity()
+            .then(
+                function(response) {
+                    if (response) {
+                        var datasets = []
+                        for (var i = 0; i < response.labels.length; i++) {
+                            var color = Math.floor((Math.random() * 255)) + ', ' +
+                                Math.floor((Math.random() * 255)) + ', ' +
+                                Math.floor((Math.random() * 255))
+                            var dataset = {
+                                label: response.labels[i],
+                                backgroundColor: 'rgba(' + color + ',0.2)',
+                                borderColor: 'rgba(' + color + ',1)',
+                                pointBackgroundColor: 'rgba(' + color + ',1)',
+                                pointRadius: 6,
+                                pointBorderColor: "#fff",
+                                pointHoverBackgroundColor: "#fff",
+                                pointHoverBorderColor: 'rgba(' + color + ',1)',
+                                data: response.data[i]
+                            }
+                            datasets.push(dataset)
+                        }
+                        _createRadarChart(['Geral', 'Recepção', 'Estrutura', 'Atendimento', 'Pontualidade'], datasets, 'radar')
+                    }
+                },
+                function(error) {
+                    toastr.error('Ocorreu um erro ao obter as estações');
+                }
+            );
+
         UserSvc.summary()
             .then(
                 function(response) {
                     if (response) {
-                        console.log(response.data);
                         _createChart('pie', 'Usuários', ['Ativos', 'Banidos', 'Administradores'], [response.data.users, response.data.banned, response.data.admin], 'users')
                     }
                 },
@@ -125,6 +154,25 @@
                                 beginAtZero: true
                             }
                         }]
+                    }
+                }
+            })
+        }
+
+        function _createRadarChart(labels, datasets, element) {
+            new Chart(document.getElementById(element), {
+                type: 'radar',
+                data: {
+                    labels: labels,
+                    datasets: datasets
+                },
+                options: {
+                    scale: {
+                        reverse: false,
+                        ticks: {
+                            beginAtZero: true,
+                            stepSize: 0.5
+                        }
                     }
                 }
             })

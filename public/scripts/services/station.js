@@ -20,6 +20,7 @@
             countByCity: _countByCity,
             avgByCity: _avgByCity,
             reviewsByCity: _reviewsByCity,
+            summaryByCity: _summaryByCity,
             set: function(f, v, o) {
                 field = f;
                 searchValue = v;
@@ -127,6 +128,17 @@
                 url += '?s=' + sort
             }
             return $http.get(url).then(
+                function(response) {
+                    return response.data;
+                },
+                function(errResponse) {
+                    return $q.reject(errResponse);
+                }
+            );
+        }
+
+        function _summaryByCity() {
+            return $http.get('/stations/summary-by-city').then(
                 function(response) {
                     return response.data;
                 },
