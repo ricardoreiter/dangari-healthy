@@ -8,7 +8,8 @@
         return {
             getAll: _getAll,
             saveUser: _saveUser,
-            summary: _summary
+            summary: _summary,
+            lastYear: _lastYear
         }
 
         function _saveUser(id, user) {
@@ -30,6 +31,18 @@
                 },
                 function(errResponse) {
                     console.error('Erro ao obter todos usuários.');
+                    return $q.reject(errResponse);
+                }
+            });
+        }
+
+        function _lastYear() {
+            return $http.get('users/last-year').then({
+                function(response) {
+                    return response.data;
+                },
+                function(errResponse) {
+                    console.error('Erro os dados do último ano.');
                     return $q.reject(errResponse);
                 }
             });

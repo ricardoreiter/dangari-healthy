@@ -53,6 +53,35 @@ router.get('/', function(req, res, next) {
     });
 });
 
+router.get('/last-year', function(req, res, next) {
+    var now = new Date()
+    var end = new Date(now.setMonth(now.getMonth() + 1)).setDate(1)
+    var begin = new Date(now.setFullYear(now.getFullYear() - 1)).setDate(1)
+    console.log(begin);
+    User.find({
+        createdAt: {
+            $gte: begin,
+            $lt: end
+        }
+    }, function(err, users) {
+        if (err) {
+            return next(err);
+        }
+        var map = _groupByMonth(users)
+        var result = {
+            labels: [],
+            data: []
+        }
+        for (entry of map) {
+            result.labels.push(_strMonth(entry.k))
+            result.data.push(entry.v.length)
+        }
+        res.json(result);
+    }).sort({
+        createdAt: 'asc'
+    });
+});
+
 router.get('/me/me', auth.ensureAuthorized, function(req, res, next) {
     User.findOne({
         token: req.token
@@ -167,5 +196,62 @@ router.put('/:id', auth.ensureAuthorized, function(req, res, next) {
         }
     });
 });
+
+function _groupByMonth(users) {
+    var result = [];
+    for (var i = 0; i < users.length; i++) {
+        var user = users[i]
+        var month = user.createdAt.getMonth()
+        var entry = _find(month, result)
+        if (entry) {
+            entry.v.push(user)
+        } else {
+            entry = {
+                k: month,
+                v: [user]
+            }
+            result.push(entry)
+        }
+    }
+    return result;
+}
+
+function _find(month, map) {
+    for (var i = 0; i < map.length; i++) {
+        entry = map[i]
+        if (entry.k === month) {
+            return entry
+        }
+    }
+}
+
+function _strMonth(month) {
+    switch (month) {
+        case 0:
+            return 'Janeiro'
+        case 1:
+            return 'Fevereiro'
+        case 2:
+            return 'Março'
+        case 3:
+            return 'Abril'
+        case 4:
+            return 'Maio'
+        case 5:
+            return 'Junho'
+        case 6:
+            return 'Julho'
+        case 7:
+            return 'Agosto'
+        case 8:
+            return 'Setembro'
+        case 9:
+            return 'Outubro'
+        case 10:
+            return 'Novembro'
+        case 11:
+            return 'Dezembro'
+    }
+}
 
 module.exports = router;

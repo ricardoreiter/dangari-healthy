@@ -120,6 +120,19 @@
                 }
             );
 
+        UserSvc.lastYear()
+            .then(
+                function(response) {
+                    if (response) {
+                      console.log(response);
+                        _createChart('line', 'Cadastro de usuários', response.data.labels, response.data.data, 'usersLastYear')
+                    }
+                },
+                function(error) {
+                    toastr.error('Ocorreu um erro ao obter as estações');
+                }
+            );
+
         function _createChart(type, label, labels, data, element) {
             new Chart(document.getElementById(element), {
                 type: type,
@@ -158,6 +171,9 @@
                 }
             })
         }
+        Chart.defaults.global.defaultFontSize = 20
+
+        console.log(Chart);
 
         function _createRadarChart(labels, datasets, element) {
             new Chart(document.getElementById(element), {
