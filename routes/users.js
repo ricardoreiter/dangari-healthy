@@ -73,7 +73,7 @@ router.get('/last-year', function(req, res, next) {
             data: []
         }
         for (entry of map) {
-            result.labels.push(_strMonth(entry.k))
+            result.labels.push(_strMonth(entry.k) +' '+ entry.v[0].createdAt.getFullYear())
             result.data.push(entry.v.length)
         }
         res.json(result);
